@@ -1,15 +1,23 @@
 import React from "react";
 import { connect } from "react-redux";
 import { category_interface } from "../Categories/interfaces";
-import actions from "../Categories/state/actions";
+import selectors from "../Categories/state/selectors";
+import './styles.scss';
 
-interface CategoryProps {
+interface Props {
   parent?: string;
   categories: category_interface[];
+  clickCategory?: (categoryName: string) => void;
+  activeCategoryName?: string,
 }
 
-function Category(props: CategoryProps) {
-  const { parent, categories } = props;
+function Category(props: Props) {
+  const { parent, categories, clickCategory, activeCategoryName } = props;
+
+  function onClickHandler(categoryName: string) {
+    if (clickCategory) clickCategory(categoryName);
+  }
+
   return (
     <ul>
       {categories
@@ -18,20 +26,21 @@ function Category(props: CategoryProps) {
           const children = categories.filter(
             (subItem: category_interface) => subItem.parent === item.name
           );
-          if (!children.length) {
-            return <li key={item.name}>{item.name}</li>;
-          } else {
-            return (
-              <li key={item.name}>
-                {item.name}
-                  <Category categories={categories} parent={item.name} />
-
-              </li>
-            );
-          }
+          return (
+            <li key={item.name}>
+              <span className={`list-item ${activeCategoryName === item.name ? 'active': ''}`} onClick={() => onClickHandler(item.name)}>{item.name}</span>
+              {!!children.length && (
+                <Category activeCategoryName={activeCategoryName} categories={categories} parent={item.name} clickCategory={clickCategory} />
+              )}
+            </li>
+          );
         })}
     </ul>
   );
 }
 
-export default connect(null, { ...actions })(Category);
+const mapStateToProps = (state: any) => ({
+    activeCategoryName: selectors.getActiveCategory(state),
+  });
+
+export default connect(mapStateToProps)(Category);

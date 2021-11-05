@@ -8,6 +8,11 @@ const loadCategories = () => (dispatch: any) => {
   });
 };
 
+const clickCategory = (categoryName: string) => (dispatch: any) => {
+    dispatch(actionCreators.clickCategory(categoryName));
+};
+
 export default {
   loadCategories,
+  clickCategory,
 };

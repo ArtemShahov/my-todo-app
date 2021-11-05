@@ -5,20 +5,21 @@ import Category from "../Category";
 import { category_interface } from "../Categories/interfaces";
 import selectors from "../Categories/state/selectors";
 
-interface CategoriesProps {
-  loadCategories: () => void;
-  categories: category_interface[];
+interface Props {
+  loadCategories: () => void,
+  categories: category_interface[],
+  clickCategory?: (categoryName: string) => void;
   
 }
 
-function Categories(props: CategoriesProps) {
-  const { loadCategories, categories } = props;
+function Categories(props: Props) {
+  const { loadCategories, clickCategory, categories } = props;
 
   useEffect(() => {
     loadCategories();
-  });
+  }, [loadCategories]);
 
-  return <Category categories={categories} />;
+  return <Category categories={categories} clickCategory={clickCategory} />;
 }
 
 const mapStateToProps = (state: any) => ({
