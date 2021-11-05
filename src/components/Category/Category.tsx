@@ -2,13 +2,13 @@ import React from "react";
 import { connect } from "react-redux";
 import { category_interface } from "../Categories/interfaces";
 import selectors from "../Categories/state/selectors";
-import './styles.scss';
+import "./styles.scss";
 
 interface Props {
   parent?: string;
   categories: category_interface[];
   clickCategory?: (categoryName: string) => void;
-  activeCategoryName?: string,
+  activeCategoryName?: string;
 }
 
 function Category(props: Props) {
@@ -28,9 +28,21 @@ function Category(props: Props) {
           );
           return (
             <li key={item.name}>
-              <span className={`list-item ${activeCategoryName === item.name ? 'active': ''}`} onClick={() => onClickHandler(item.name)}>{item.name}</span>
+              <span
+                className={`list-item ${
+                  activeCategoryName === item.name ? "active" : ""
+                }`}
+                onClick={() => onClickHandler(item.name)}
+              >
+                {item.name}
+              </span>
               {!!children.length && (
-                <Category activeCategoryName={activeCategoryName} categories={categories} parent={item.name} clickCategory={clickCategory} />
+                <Category
+                  activeCategoryName={activeCategoryName}
+                  categories={categories}
+                  parent={item.name}
+                  clickCategory={clickCategory}
+                />
               )}
             </li>
           );
@@ -40,7 +52,7 @@ function Category(props: Props) {
 }
 
 const mapStateToProps = (state: any) => ({
-    activeCategoryName: selectors.getActiveCategory(state),
-  });
+  activeCategoryName: selectors.getActiveCategory(state),
+});
 
 export default connect(mapStateToProps)(Category);

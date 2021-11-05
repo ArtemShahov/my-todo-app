@@ -5,45 +5,68 @@ const cors = require('cors');
 const path = require('path');
 const port = process.env.PORT || 5050;
 
+const mongoose = require('mongoose');
+mongoose.connect('mongodb+srv://admin:GNff*dYABZY2_Mn@cluster0.3eld3.mongodb.net/myFirstDatabase?');
 
-const categories = [{
-        name: 'cat1',
-        items: ['item1', 'item2'],
+const CategorySchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
     },
-    {
-        name: 'cat2',
-        items: ['item3', 'item2'],
+    items: {
+        type: [String],
+        required: true,
     },
-    {
-        name: 'cat3',
-        items: [],
+    parent: {
+        type: String,
+        required: false,
     },
-    {
-        name: 'cat4',
-    },
-    {
-        name: 'cat5',
-    },
-    {
-        name: 'cat6',
-    },
-    {
-        name: 'cat7',
-        parent: 'cat1',
-    },
-    {
-        name: 'cat8',
-        parent: 'cat1',
-    },
-    {
-        name: 'cat9',
-        parent: 'cat8',
-    },
-    {
-        name: 'cat10',
-        parent: 'cat1',
-    }
-];
+    
+})
+
+const Category = mongoose.model('Category', CategorySchema);
+
+const first = new Category({name: 'test', items: [],});
+first.save();
+
+// const categories = [{
+//         name: 'cat1',
+//         items: ['item1', 'item2'],
+//     },
+//     {
+//         name: 'cat2',
+//         items: ['item3', 'item2'],
+//     },
+//     {
+//         name: 'cat3',
+//         items: [],
+//     },
+//     {
+//         name: 'cat4',
+//     },
+//     {
+//         name: 'cat5',
+//     },
+//     {
+//         name: 'cat6',
+//     },
+//     {
+//         name: 'cat7',
+//         parent: 'cat1',
+//     },
+//     {
+//         name: 'cat8',
+//         parent: 'cat1',
+//     },
+//     {
+//         name: 'cat9',
+//         parent: 'cat8',
+//     },
+//     {
+//         name: 'cat10',
+//         parent: 'cat1',
+//     }
+// ];
 
 // const categoriesItems = [
 //     {
@@ -67,7 +90,8 @@ app.use(express.urlencoded({
 }));
 app.use(express.static('build'));
 
-app.get('/getCategories', (req, res) => {
+app.get('/getCategories', async (req, res) => {
+    const categories = await Category.find();
     res.json(categories);
 })
 
