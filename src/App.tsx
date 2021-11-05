@@ -1,9 +1,10 @@
+import Categories from './components/Categories';
 import React from 'react';
 import './App.css';
 
 function App() {
   return (
-    <div>1</div>
+    <Categories />
   );
 }
 
