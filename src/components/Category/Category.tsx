@@ -1,18 +1,25 @@
 import React from "react";
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 import { category_interface } from "../Categories/interfaces";
+import actions from "../Categories/state/actions";
 import selectors from "../Categories/state/selectors";
 import "./styles.scss";
 
-interface Props {
+const mapStateToProps = (state: any) => ({
+  activeCategoryId: selectors.getActiveCategory(state),
+  categories: selectors.getCategories(state),
+});
+
+const connector = connect(mapStateToProps, { ...actions });
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface Props extends PropsFromRedux {
   parent?: string;
-  categories: category_interface[];
-  clickCategory?: (categoryName: string) => void;
-  activeCategoryName?: string;
 }
 
 function Category(props: Props) {
-  const { parent, categories, clickCategory, activeCategoryName } = props;
+  const { parent, categories, clickCategory, activeCategoryId } = props;
 
   function onClickHandler(categoryName: string) {
     if (clickCategory) clickCategory(categoryName);
@@ -27,23 +34,16 @@ function Category(props: Props) {
             (subItem: category_interface) => subItem.parent === item.name
           );
           return (
-            <li key={item.name}>
+            <li key={item._id}>
               <span
                 className={`list-item ${
-                  activeCategoryName === item.name ? "active" : ""
+                  activeCategoryId === item._id ? "active" : ""
                 }`}
-                onClick={() => onClickHandler(item.name)}
+                onClick={() => onClickHandler(item._id)}
               >
                 {item.name}
               </span>
-              {!!children.length && (
-                <Category
-                  activeCategoryName={activeCategoryName}
-                  categories={categories}
-                  parent={item.name}
-                  clickCategory={clickCategory}
-                />
-              )}
+              {!!children.length && <Category {...props} />}
             </li>
           );
         })}
@@ -51,8 +51,4 @@ function Category(props: Props) {
   );
 }
 
-const mapStateToProps = (state: any) => ({
-  activeCategoryName: selectors.getActiveCategory(state),
-});
-
-export default connect(mapStateToProps)(Category);
+export default connector(Category);

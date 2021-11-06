@@ -1,5 +1,8 @@
+type CategoryName = string;
+
 export interface category_interface {
-    name: string,
+    _id: string,
+    name: CategoryName,
     items?: string[],
     parent?: string,
 }

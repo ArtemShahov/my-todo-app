@@ -1,15 +1,22 @@
 import React from "react";
 import selectors from "./state/selectors";
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 import { ModalName } from "./state/modalTypes";
 import './styles.scss';
 import actions from "./state/actions";
+import { RootState } from "../../../store/types";
 
-interface Props {
+const mapStateToProps = (state: RootState) => ({
+  isOpens: selectors.isModalOpen(state),
+});
+
+const connector = connect(mapStateToProps, { ...actions});
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface Props extends PropsFromRedux {
   children: any,
   type: ModalName,
-  isOpens?: any,
-  closeModal?: any, 
 }
 
 function Modal(props: Props) {
@@ -25,8 +32,6 @@ function Modal(props: Props) {
   );
 }
 
-const mapStateToProps = (state: any) => ({
-  isOpens: selectors.isModalOpen(state),
-});
 
-export default connect(mapStateToProps, { ...actions})(Modal);
+
+export default connector(Modal);

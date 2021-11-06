@@ -2,21 +2,16 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import actions from "./state/actions";
 import Category from "../Category";
-import { category_interface } from "../Categories/interfaces";
-import selectors from "../Categories/state/selectors";
-import Modal from '../common/Modal';
+import Modal from "../common/Modal";
 import { ADD_CATEGORY } from "../common/Modal/state/modalTypes";
-import CategoryControl from '../CategoryControl';
+import CategoryControl from "../CategoryControl";
 
 interface Props {
-  loadCategories: () => void,
-  categories: category_interface[],
-  clickCategory?: (categoryName: string) => void;
-  
+  loadCategories: () => void;
 }
 
 function Categories(props: Props) {
-  const { loadCategories, clickCategory, categories } = props;
+  const { loadCategories } = props;
 
   useEffect(() => {
     loadCategories();
@@ -25,16 +20,10 @@ function Categories(props: Props) {
   return (
     <div>
       <CategoryControl />
-      <Modal type={ADD_CATEGORY}>
-        kj
-      </Modal>
-      <Category categories={categories} clickCategory={clickCategory} />
+      <Modal type={ADD_CATEGORY}>kj</Modal>
+      <Category />
     </div>
-    );
+  );
 }
 
-const mapStateToProps = (state: any) => ({
-    categories: selectors.getCategories(state),
-  });
-
-export default connect(mapStateToProps ,{ ...actions })(Categories);
+export default connect(null, { ...actions })(Categories);

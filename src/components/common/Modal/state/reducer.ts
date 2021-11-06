@@ -2,12 +2,7 @@ import { ModalName } from "./modalTypes";
 import { action_interface } from "./actionCreators";
 import { OPEN_MODAL, CLOSE_MODAL } from "./actionTypes";
 
-export interface modalReducer_interface {
-  ADD_CATEGORY: boolean;
-}
-
-const initialState: modalReducer_interface = {
-  ADD_CATEGORY: false,
+const initialState: object = {
 };
 
 export const modalReducer = (

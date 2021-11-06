@@ -1,5 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 
+import { category_interface } from "../components/Categories/interfaces";
+
 const getCategories = async () => {
     const response = await fetch(`http://localhost:5050/getCategories`, {
         method: 'GET',
@@ -11,7 +13,7 @@ const getCategories = async () => {
     return data;
 }
 
-const removeCategory = async (category: any) => {
+const removeCategory = async (category: category_interface) => {
     const response = await fetch(`http://localhost:5050/removeCategory`, {
         method: 'POST',
         headers: {
