@@ -4,13 +4,13 @@ import { CHANGE_INPUT_VALUE, CLICK_CATEGORY, GET_CATEGORIES } from "./actionType
 
 export interface categoriesReducer_interface {
     allCategories: category_interface[],
-    activeCategory: string,
+    activeCategory: string | null,
     addCategoryForm: any,
 }
 
 const initialState: categoriesReducer_interface = {
   allCategories: [],
-  activeCategory: '',
+  activeCategory: null,
   addCategoryForm: {
     categoryName: '',
   },
@@ -30,7 +30,7 @@ export const categoriesReducer = (
     case CLICK_CATEGORY: {
         let result = action.payload;
         const currentActiveCategory = state.activeCategory;
-        if (result === currentActiveCategory) result = '';
+        if (result === currentActiveCategory) result = null;
         return {
             ...state,
             activeCategory: result,

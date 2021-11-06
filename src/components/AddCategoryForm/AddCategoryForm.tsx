@@ -20,7 +20,7 @@ interface Props extends PropsFromRedux {}
 function AddCategoryForm(props: Props) {
   const { getFieldValue, changeInputValue, addCategory, parentId, categories } = props;
   const parent = categories.find((item: category_interface) => item._id === parentId);
-  const parentName = parent ? parent.name : undefined;
+  const parentName = parent ? parent.name : null;
 
   function useInputState(field: string) {
     return {
@@ -32,7 +32,7 @@ function AddCategoryForm(props: Props) {
   function onSubmitHandler(event: any) {
     console.log(event);
     event.preventDefault();
-    addCategory(getFieldValue("categoryName"), parentName);
+    addCategory(getFieldValue("categoryName"), parentId);
   }
 
   const categoryName = useInputState("categoryName");

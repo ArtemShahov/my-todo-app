@@ -18,8 +18,8 @@ const changeInputValue = (field: string, value: string) => (dispatch: AppDispatc
   dispatch(actionCreators.changeInputValue({field, value}));
 };
 
-const addCategory = (name: string, parent: string | undefined) => (dispatch: AppDispatch) => {
-  dataService.addCategory({name, parent});
+const addCategory = (name: string, parentId: any) => (dispatch: AppDispatch) => {
+  dataService.addCategory({name, parentId});
 }
 
 export default {

@@ -24,7 +24,7 @@ function Categories(props: Props) {
       <Modal type={ADD_CATEGORY}>
         <AddCategoryForm />
       </Modal>
-      <Category />
+      <Category parentId={null} />
     </div>
   );
 }

@@ -13,13 +13,13 @@ const CategorySchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    parent: {
+    parentId: {
         type: String,
         required: false,
     },
     items: {
         type: [String],
-        required: false,
+        required: true,
     },
 
 })
@@ -39,7 +39,7 @@ app.get('/getCategories', async (req, res) => {
 })
 
 app.post('/addCategory', async (req, res) => {
-    const newCategory = new Category({ ...req.body });
+    const newCategory = new Category({ ...req.body, items: [] });
     await newCategory.save().then(() => console.log('yes'))
 })
 

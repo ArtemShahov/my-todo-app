@@ -4,6 +4,6 @@ export interface category_interface {
     _id: string,
     name: CategoryName,
     items?: string[],
-    parent?: string,
+    parentId?: string,
     __v?: any,
 }

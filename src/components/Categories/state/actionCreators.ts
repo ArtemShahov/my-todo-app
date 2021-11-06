@@ -27,7 +27,7 @@ const changeInputValue = (data: {
 
 const addCategory = (data: {
   name: string;
-  parent: string;
+  parentId: string;
 }): action_interface => ({
   type: ADD_CATEGORY,
   payload: data,

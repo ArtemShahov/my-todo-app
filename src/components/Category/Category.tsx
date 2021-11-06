@@ -16,24 +16,24 @@ const connector = connect(mapStateToProps, { ...actions });
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 interface Props extends PropsFromRedux {
-  parent?: string;
+  parentId?: string | null;
 }
 
 function Category(props: Props) {
-  console.log('1');
-  const { parent, categories, clickCategory, activeCategoryId } = props;
+  const { parentId, categories, clickCategory, activeCategoryId } = props;
 
   function onClickHandler(categoryId: string) {
     clickCategory(categoryId);
   }
+  console.log(parentId)
 
   return (
     <ul>
       {categories
-        .filter((item: category_interface) => item.parent === parent)
+        .filter((item: category_interface) => item.parentId === parentId)
         .map((item: category_interface) => {
           const children = categories.filter(
-            (subItem: category_interface) => subItem.parent === item.name
+            (subItem: category_interface) => subItem.parentId === item._id
           );
           return (
             <li key={item._id}>
@@ -45,7 +45,7 @@ function Category(props: Props) {
               >
                 {item.name}
               </span>
-              {!!children.length && <Category {...props} parent={item.name} />}
+              {!!children.length && <Category {...props} parentId={item._id} />}
             </li>
           );
         })}
