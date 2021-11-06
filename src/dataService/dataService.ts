@@ -35,8 +35,22 @@ const getCategoriesItems = async () => {
     const data = await response.json();
     return data;
 }
+
+const addCategory = async (category: {name: string, parent: any}) => {
+    const response = await fetch (`http://localhost:5050/addCategory`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(category),
+    });
+    const data = await response.json();
+    return data;
+}
+
 export default {
     getCategories,
     removeCategory,
     getCategoriesItems,
+    addCategory,
 };

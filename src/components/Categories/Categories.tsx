@@ -5,6 +5,7 @@ import Category from "../Category";
 import Modal from "../common/Modal";
 import { ADD_CATEGORY } from "../common/Modal/state/modalTypes";
 import CategoryControl from "../CategoryControl";
+import AddCategoryForm from "../AddCategoryForm";
 
 interface Props {
   loadCategories: () => void;
@@ -20,7 +21,9 @@ function Categories(props: Props) {
   return (
     <div>
       <CategoryControl />
-      <Modal type={ADD_CATEGORY}>kj</Modal>
+      <Modal type={ADD_CATEGORY}>
+        <AddCategoryForm />
+      </Modal>
       <Category />
     </div>
   );

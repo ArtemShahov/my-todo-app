@@ -1,11 +1,12 @@
 import React from "react";
 import { connect, ConnectedProps } from "react-redux";
+import { RootState } from "../../store/types";
 import { category_interface } from "../Categories/interfaces";
 import actions from "../Categories/state/actions";
 import selectors from "../Categories/state/selectors";
 import "./styles.scss";
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: RootState) => ({
   activeCategoryId: selectors.getActiveCategory(state),
   categories: selectors.getCategories(state),
 });
@@ -19,10 +20,11 @@ interface Props extends PropsFromRedux {
 }
 
 function Category(props: Props) {
+  console.log('1');
   const { parent, categories, clickCategory, activeCategoryId } = props;
 
-  function onClickHandler(categoryName: string) {
-    if (clickCategory) clickCategory(categoryName);
+  function onClickHandler(categoryId: string) {
+    clickCategory(categoryId);
   }
 
   return (
@@ -43,7 +45,7 @@ function Category(props: Props) {
               >
                 {item.name}
               </span>
-              {!!children.length && <Category {...props} />}
+              {!!children.length && <Category {...props} parent={item.name} />}
             </li>
           );
         })}

@@ -13,75 +13,18 @@ const CategorySchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    items: {
-        type: [String],
-        required: true,
-    },
     parent: {
         type: String,
         required: false,
     },
-    
+    items: {
+        type: [String],
+        required: false,
+    },
+
 })
 
 const Category = mongoose.model('Category', CategorySchema);
-
-const first = new Category({name: 'test', items: [],});
-first.save();
-
-// const categories = [{
-//         name: 'cat1',
-//         items: ['item1', 'item2'],
-//     },
-//     {
-//         name: 'cat2',
-//         items: ['item3', 'item2'],
-//     },
-//     {
-//         name: 'cat3',
-//         items: [],
-//     },
-//     {
-//         name: 'cat4',
-//     },
-//     {
-//         name: 'cat5',
-//     },
-//     {
-//         name: 'cat6',
-//     },
-//     {
-//         name: 'cat7',
-//         parent: 'cat1',
-//     },
-//     {
-//         name: 'cat8',
-//         parent: 'cat1',
-//     },
-//     {
-//         name: 'cat9',
-//         parent: 'cat8',
-//     },
-//     {
-//         name: 'cat10',
-//         parent: 'cat1',
-//     }
-// ];
-
-// const categoriesItems = [
-//     {
-//         name: 'item1',
-//         content: 'To do 1',
-//     },
-//     {
-//         name: 'item2',
-//         content: 'To do 2',
-//     },
-//     {
-//         name: 'item3',
-//         content: 'To do 3',
-//     },
-// ];
 
 app.use(cors());
 app.use(express.json());
@@ -93,6 +36,11 @@ app.use(express.static('build'));
 app.get('/getCategories', async (req, res) => {
     const categories = await Category.find();
     res.json(categories);
+})
+
+app.post('/addCategory', async (req, res) => {
+    const newCategory = new Category({ ...req.body });
+    await newCategory.save().then(() => console.log('yes'))
 })
 
 app.get('*', (req, res) => {

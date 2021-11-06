@@ -5,4 +5,5 @@ export interface category_interface {
     name: CategoryName,
     items?: string[],
     parent?: string,
+    __v?: any,
 }
