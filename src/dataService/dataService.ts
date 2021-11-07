@@ -1,9 +1,10 @@
 /* eslint-disable import/no-anonymous-default-export */
-
 import { category_interface } from "../components/Categories/interfaces";
 
+const URL = 'http://localhost:5050';
+
 const getCategories = async () => {
-    const response = await fetch(`http://localhost:5050/getCategories`, {
+    const response = await fetch(`${URL}/getCategories`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -14,7 +15,7 @@ const getCategories = async () => {
 }
 
 const removeCategory = async (category: category_interface) => {
-    const response = await fetch(`http://localhost:5050/removeCategory`, {
+    const response = await fetch(`${URL}/removeCategory`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -26,7 +27,7 @@ const removeCategory = async (category: category_interface) => {
 }
 
 const getCategoriesItems = async () => {
-    const response = await fetch(`http://localhost:5050/getCategoriesItems`, {
+    const response = await fetch(`${URL}/getCategoriesItems`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -38,7 +39,7 @@ const getCategoriesItems = async () => {
 
 const addCategory = async (category: {name: string, parentId: any}) => {
     console.log(category);
-    const response = await fetch (`http://localhost:5050/addCategory`, {
+    const response = await fetch (`${URL}/addCategory`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

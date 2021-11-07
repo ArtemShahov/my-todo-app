@@ -25,7 +25,6 @@ function Category(props: Props) {
   function onClickHandler(categoryId: string) {
     clickCategory(categoryId);
   }
-  console.log(parentId)
 
   return (
     <ul>

@@ -1,5 +1,5 @@
-import { ModalName } from './modalTypes';
 /* eslint-disable import/no-anonymous-default-export */
+import { ModalName } from './modalTypes';
 import actionCreators from "./actionCreators";
 import { AppDispatch } from '../../../../store/types';
 

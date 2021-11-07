@@ -40,7 +40,9 @@ app.get('/getCategories', async (req, res) => {
 
 app.post('/addCategory', async (req, res) => {
     const newCategory = new Category({ ...req.body, items: [] });
-    await newCategory.save().then(() => console.log('yes'))
+    await newCategory.save();
+    const categories = await Category.find();
+    res.json(categories);
 })
 
 app.get('*', (req, res) => {

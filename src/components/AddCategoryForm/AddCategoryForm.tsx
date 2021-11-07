@@ -15,11 +15,16 @@ const connector = connect(mapStateToProps, { ...actions });
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-interface Props extends PropsFromRedux {}
+interface Props extends PropsFromRedux {
+  close?: any,
+}
 
 function AddCategoryForm(props: Props) {
-  const { getFieldValue, changeInputValue, addCategory, parentId, categories } = props;
-  const parent = categories.find((item: category_interface) => item._id === parentId);
+  const { getFieldValue, changeInputValue, addCategory, parentId, categories, close } =
+    props;
+  const parent = categories.find(
+    (item: category_interface) => item._id === parentId
+  );
   const parentName = parent ? parent.name : null;
 
   function useInputState(field: string) {
@@ -33,13 +38,14 @@ function AddCategoryForm(props: Props) {
     console.log(event);
     event.preventDefault();
     addCategory(getFieldValue("categoryName"), parentId);
+    close();
   }
 
   const categoryName = useInputState("categoryName");
 
   return (
     <div>
-      <h3>Add new category{parentName ? ` in ${parentName}` : ''}</h3>
+      <h3>Add new category{parentName ? ` in ${parentName}` : ""}</h3>
       <form>
         <input type="text" {...categoryName} />
         <button type="button" onClick={onSubmitHandler}>
