@@ -6,12 +6,14 @@ import Modal from "../common/Modal";
 import {
   ADD_CATEGORY,
   DELETE_CATEGORY,
+  ADD_TODO_ITEM,
 } from "../common/Modal/state/modalTypes";
 import CategoryControl from "../CategoryControl";
 import AddCategoryForm from "../AddCategoryForm";
 import Confirm from '../common/Confirm';
 import selectors from "./state/selectors";
 import { RootState } from "../../store/types";
+import AddToDoItemForm from "../AddToDoItemForm";
 
 const mapStateToProps = (state: RootState) => ({
   activeCategoryId: selectors.getActiveCategoryId(state),
@@ -39,6 +41,9 @@ function Categories(props: PropsFromRedux) {
       </Modal>
       <Modal type={DELETE_CATEGORY}>
         <Confirm title={`delete ${activeCategory?.name}?`} callback={delCategory} />
+      </Modal>
+      <Modal type={ADD_TODO_ITEM}>
+        <AddToDoItemForm />
       </Modal>
       <Category parentId={null} />
     </div>

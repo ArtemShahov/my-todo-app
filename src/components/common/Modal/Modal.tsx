@@ -24,12 +24,13 @@ function Modal(props: Props) {
   const isModalOpen = isOpens[type];
   const close = () => closeModal(type);
   const newChildren = React.cloneElement(children, {close});
-  return (
+  return isModalOpen ? (
     <div className={`modal ${!isModalOpen ? "visually-hidden" : ""}`}>
       <div className="modal__overflow" onClick={() => closeModal(type)} />
       <div className="modal__content">{newChildren}</div>
     </div>
-  );
+  ): (<></>);
+
 }
 
 export default connector(Modal);

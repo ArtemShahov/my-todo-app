@@ -1,15 +1,14 @@
 import React from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "../../store/types";
-import { category_interface } from "../Categories/interfaces";
 import actions from "../Categories/state/actions";
 import selectors from "../Categories/state/selectors";
 import Form from "../common/Form";
 
 const mapStateToProps = (state: RootState) => ({
   getFieldValue: (field: string) => selectors.getFieldValue(state, field),
+  parent: selectors.getActiveCategory(state),
   parentId: selectors.getActiveCategoryId(state),
-  categories: selectors.getCategories(state),
 });
 
 const connector = connect(mapStateToProps, { ...actions });
@@ -25,13 +24,10 @@ function AddCategoryForm(props: Props) {
     getFieldValue,
     changeInputValue,
     addCategory,
+    parent,
     parentId,
-    categories,
     close,
   } = props;
-  const parent = categories.find(
-    (item: category_interface) => item.id === parentId
-  );
   const parentName = parent ? parent.name : null;
   const categoryNameField = "categoryName";
 
@@ -58,10 +54,10 @@ function AddCategoryForm(props: Props) {
 
   return (
     <div>
-      <h3>Add new category{parentName ? ` in ${parentName}` : ""}</h3>
+      <h4>Add new category{parentName ? ` in ${parentName}` : ""}</h4>
       <Form
         fields={[
-          { type: "text", placeHolder: "Enter category name", inputHook: categoryName },
+          { name: categoryNameField, type: "text", label: "Category name", placeHolder: "Enter category name", valueHandler: categoryName },
         ]}
         submitFunc={onSubmitHandler}
       />

@@ -5,7 +5,6 @@ const getCategories = (store: any) => store.categoriesReducer.allCategories;
 const getActiveCategoryId = (store: any) =>
   store.categoriesReducer.activeCategory;
 const getActiveCategory = (store: any) => {
-  console.log('1');
   const allCategories = store.categoriesReducer.allCategories;
   const activeCategoryId = store.categoriesReducer.activeCategory;
   return allCategories.find((item: category_interface) => item.id === activeCategoryId);

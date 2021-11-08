@@ -1,18 +1,24 @@
 import { category_interface } from "../interfaces";
 import { action_interface } from "./../../../store/interfaces";
-import { CHANGE_INPUT_VALUE, SET_ACTIVE_CATEGORY, GET_CATEGORIES } from "./actionTypes";
+import {
+  CHANGE_INPUT_VALUE,
+  SET_ACTIVE_CATEGORY,
+  GET_CATEGORIES,
+} from "./actionTypes";
 
 export interface categoriesReducer_interface {
-    allCategories: category_interface[],
-    activeCategory: string | null,
-    addCategoryForm: any,
+  allCategories: category_interface[];
+  activeCategory: string | null;
+  addCategoryForm: any;
 }
 
 const initialState: categoriesReducer_interface = {
   allCategories: [],
   activeCategory: null,
   addCategoryForm: {
-    categoryName: '',
+    categoryName: "",
+    title: "",
+    content: "",
   },
 };
 
@@ -28,13 +34,13 @@ export const categoriesReducer = (
       };
     }
     case SET_ACTIVE_CATEGORY: {
-        let result = action.payload;
-        const currentActiveCategory = state.activeCategory;
-        if (result === currentActiveCategory) result = null;
-        return {
-            ...state,
-            activeCategory: result,
-        }
+      let result = action.payload;
+      const currentActiveCategory = state.activeCategory;
+      if (result === currentActiveCategory) result = null;
+      return {
+        ...state,
+        activeCategory: result,
+      };
     }
     case CHANGE_INPUT_VALUE: {
       const { field, value } = action.payload;
@@ -43,9 +49,9 @@ export const categoriesReducer = (
       return {
         ...state,
         addCategoryForm: {
-          ...addCategoryForm
+          ...addCategoryForm,
         },
-      }
+      };
     }
     default:
       return state;
