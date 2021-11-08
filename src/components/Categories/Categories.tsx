@@ -15,6 +15,7 @@ import { RootState } from "../../store/types";
 
 const mapStateToProps = (state: RootState) => ({
   activeCategoryId: selectors.getActiveCategoryId(state),
+  activeCategory: selectors.getActiveCategory(state),
 });
 
 const connector = connect(mapStateToProps, { ...actions });
@@ -22,7 +23,7 @@ const connector = connect(mapStateToProps, { ...actions });
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function Categories(props: PropsFromRedux) {
-  const { loadCategories, deleteCategory, activeCategoryId } = props;
+  const { loadCategories, deleteCategory, activeCategoryId, activeCategory } = props;
 
   useEffect(() => {
     loadCategories();
@@ -37,7 +38,7 @@ function Categories(props: PropsFromRedux) {
         <AddCategoryForm />
       </Modal>
       <Modal type={DELETE_CATEGORY}>
-        <Confirm title="delete?" callback={delCategory} />
+        <Confirm title={`delete ${activeCategory?.name}?`} callback={delCategory} />
       </Modal>
       <Category parentId={null} />
     </div>

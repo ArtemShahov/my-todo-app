@@ -14,7 +14,7 @@ function CategoryControl (props: Props) {
     return (
         <div>
             <Button text="Add category" fn={() => openModal(ADD_CATEGORY)} />
-            <Button text="Delete category" fn={() => openModal(DELETE_CATEGORY)} />
+            <Button text="Delete category" disabled={!activeCategoryId} fn={() => openModal(DELETE_CATEGORY)} />
         </div>
     )
 }

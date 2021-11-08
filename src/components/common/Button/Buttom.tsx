@@ -1,17 +1,18 @@
-import React from 'react';
+import React from "react";
 
 interface Props {
-    text: string,
-    fn: any,
-};
+  text: string;
+  fn: any;
+  disabled?: boolean;
+}
 
 function Button(props: Props) {
-    const { text, fn } = props;
-    return (
-        <button type="button" onClick={fn}>
-            {text}
-        </button>
-    )
+  const { text, fn, disabled } = props;
+  return (
+    <button type="button" disabled={disabled} onClick={fn}>
+      {text}
+    </button>
+  );
 }
 
 export default Button;

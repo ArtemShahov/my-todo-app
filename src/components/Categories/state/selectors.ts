@@ -10,7 +10,7 @@ const getActiveCategory = (store: any) => {
   const activeCategoryId = store.categoriesReducer.activeCategory;
   return allCategories.find((item: category_interface) => item.id === activeCategoryId);
 };
-const getFieldValue = (store: any, field: string) => store.categoriesReducer.addCategoryForm[field];
+const getFieldValue = (store: any, field: string): string => store.categoriesReducer.addCategoryForm[field];
 
 export default {
   getCategories,

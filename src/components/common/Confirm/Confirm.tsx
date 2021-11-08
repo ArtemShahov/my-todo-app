@@ -10,10 +10,10 @@ interface Props {
 function Confirm(props: Props) {
     const { title, callback, close } = props;
     const onClickHandler = (result: boolean) => {
+        close();
         if (result) {
             callback();
         }
-        close();
     } 
     return <div>
         <h4>{title}</h4>

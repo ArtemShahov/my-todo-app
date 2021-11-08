@@ -4,6 +4,7 @@ import { RootState } from "../../store/types";
 import { category_interface } from "../Categories/interfaces";
 import actions from "../Categories/state/actions";
 import selectors from "../Categories/state/selectors";
+import Form from "../common/Form";
 
 const mapStateToProps = (state: RootState) => ({
   getFieldValue: (field: string) => selectors.getFieldValue(state, field),
@@ -32,7 +33,7 @@ function AddCategoryForm(props: Props) {
     (item: category_interface) => item.id === parentId
   );
   const parentName = parent ? parent.name : null;
-  const categoryNameField = 'categoryName';
+  const categoryNameField = "categoryName";
 
   function useInputState(field: string) {
     return {
@@ -42,7 +43,7 @@ function AddCategoryForm(props: Props) {
   }
 
   function clearForm() {
-    changeInputValue(categoryNameField, '')
+    changeInputValue(categoryNameField, "");
   }
 
   function onSubmitHandler(event: any) {
@@ -58,12 +59,12 @@ function AddCategoryForm(props: Props) {
   return (
     <div>
       <h3>Add new category{parentName ? ` in ${parentName}` : ""}</h3>
-      <form>
-        <input type="text" {...categoryName} />
-        <button type="button" onClick={onSubmitHandler}>
-          Отправить
-        </button>
-      </form>
+      <Form
+        fields={[
+          { type: "text", placeHolder: "Enter category name", inputHook: categoryName },
+        ]}
+        submitFunc={onSubmitHandler}
+      />
     </div>
   );
 }
