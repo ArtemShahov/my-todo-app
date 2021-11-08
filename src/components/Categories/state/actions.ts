@@ -12,8 +12,8 @@ const loadCategories = () => (dispatch: AppDispatch) => {
   });
 };
 
-const clickCategory = (categoryId: string) => (dispatch: AppDispatch) => {
-  dispatch(actionCreators.clickCategory(categoryId));
+const setActiveCategory = (categoryId: string) => (dispatch: AppDispatch) => {
+  dispatch(actionCreators.setActiveCategory(categoryId));
 };
 
 const changeInputValue =
@@ -31,15 +31,16 @@ const addCategory =
       modalActions.closeModal(ADD_CATEGORY)
   };
 
-  const deleteCategory = () => (dispatch: AppDispatch) => {
-    function deleteOneCategory(id: string, data: category_interface[]) {
-      
-    }
+  const deleteCategory = (categoryId: string) => (dispatch: AppDispatch) => {
+    dataService
+    .deleteCategory({categoryId})
+    .then((data) => dispatch(actionCreators.setCategories(data)))
+    .then(() =>dispatch(actionCreators.setActiveCategory(null)));
   }
 
 export default {
   loadCategories,
-  clickCategory,
+  setActiveCategory,
   changeInputValue,
   addCategory,
   deleteCategory,

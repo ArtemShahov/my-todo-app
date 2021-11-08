@@ -2,7 +2,7 @@ import { ADD_CATEGORY } from "./../../common/Modal/state/modalTypes";
 /* eslint-disable import/no-anonymous-default-export */
 import {
   GET_CATEGORIES,
-  CLICK_CATEGORY,
+  SET_ACTIVE_CATEGORY,
   CHANGE_INPUT_VALUE,
 } from "./actionTypes";
 import { action_interface } from "../../../store/interfaces";
@@ -12,8 +12,8 @@ const setCategories = (data: object): action_interface => ({
   payload: data,
 });
 
-const clickCategory = (data: string): action_interface => ({
-  type: CLICK_CATEGORY,
+const setActiveCategory = (data: string | null): action_interface => ({
+  type: SET_ACTIVE_CATEGORY,
   payload: data,
 });
 
@@ -35,7 +35,7 @@ const addCategory = (data: {
 
 export default {
   setCategories,
-  clickCategory,
+  setActiveCategory,
   changeInputValue,
   addCategory,
 };

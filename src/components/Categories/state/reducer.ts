@@ -1,6 +1,6 @@
 import { category_interface } from "../interfaces";
 import { action_interface } from "./../../../store/interfaces";
-import { CHANGE_INPUT_VALUE, CLICK_CATEGORY, GET_CATEGORIES } from "./actionTypes";
+import { CHANGE_INPUT_VALUE, SET_ACTIVE_CATEGORY, GET_CATEGORIES } from "./actionTypes";
 
 export interface categoriesReducer_interface {
     allCategories: category_interface[],
@@ -27,7 +27,7 @@ export const categoriesReducer = (
         allCategories: action.payload,
       };
     }
-    case CLICK_CATEGORY: {
+    case SET_ACTIVE_CATEGORY: {
         let result = action.payload;
         const currentActiveCategory = state.activeCategory;
         if (result === currentActiveCategory) result = null;

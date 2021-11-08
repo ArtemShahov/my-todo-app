@@ -20,10 +20,10 @@ interface Props extends PropsFromRedux {
 }
 
 function Category(props: Props) {
-  const { parentId, categories, clickCategory, activeCategoryId } = props;
+  const { parentId, categories, setActiveCategory, activeCategoryId } = props;
 
   function onClickHandler(categoryId: string) {
-    clickCategory(categoryId);
+    setActiveCategory(categoryId);
   }
 
   return (

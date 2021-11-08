@@ -58,10 +58,27 @@ app.post('/addCategory', async (req, res) => {
     const newCategory = new Category({ id, name, parentId, items: [], childrenId: [], });
     await newCategory.save();
     if (parentId) {
-        const parentCategory = await Category.findOne({id: parentId});
+        const parentCategory = await Category.findOne({ id: parentId });
         parentCategory.childrenId.push(id);
         parentCategory.save()
     }
+    const categories = await Category.find();
+    res.json(categories);
+})
+
+app.post('/deleteCategory', async (req, res) => {
+    const { categoryId: id } = req.body;
+    async function delCategory(id) {
+        console.log('tik')
+        const category = await Category.findOne({ id: id });
+        console.log(req.body);
+        const { childrenId } = category;
+        if (childrenId.length) {
+            childrenId.forEach(item => delCategory(item));
+        }
+        await category.remove();
+    }
+    await delCategory(id);
     const categories = await Category.find();
     res.json(categories);
 })

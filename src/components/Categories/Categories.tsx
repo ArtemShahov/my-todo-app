@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 import actions from "./state/actions";
 import Category from "../Category";
 import Modal from "../common/Modal";
@@ -10,18 +10,28 @@ import {
 import CategoryControl from "../CategoryControl";
 import AddCategoryForm from "../AddCategoryForm";
 import Confirm from '../common/Confirm';
+import selectors from "./state/selectors";
+import { RootState } from "../../store/types";
 
-interface Props {
-  loadCategories: () => void;
-  deleteCategory: () => void;
+const mapStateToProps = (state: RootState) => ({
+  activeCategoryId: selectors.getActiveCategory(state),
+});
+
+const connector = connect(mapStateToProps, { ...actions });
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface Props extends PropsFromRedux {
 }
 
 function Categories(props: Props) {
-  const { loadCategories, deleteCategory } = props;
+  const { loadCategories, deleteCategory, activeCategoryId } = props;
 
   useEffect(() => {
     loadCategories();
   }, [loadCategories]);
+
+  const delCategory = () => deleteCategory(activeCategoryId);
 
   return (
     <div>
@@ -30,11 +40,11 @@ function Categories(props: Props) {
         <AddCategoryForm />
       </Modal>
       <Modal type={DELETE_CATEGORY}>
-        <Confirm title="delete?" callback={deleteCategory} />
+        <Confirm title="delete?" callback={delCategory} />
       </Modal>
       <Category parentId={null} />
     </div>
   );
 }
 
-export default connect(null, { ...actions })(Categories);
+export default connector(Categories);

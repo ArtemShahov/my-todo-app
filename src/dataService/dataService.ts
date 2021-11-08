@@ -14,13 +14,13 @@ const getCategories = async () => {
     return data;
 }
 
-const removeCategory = async (category: category_interface) => {
-    const response = await fetch(`${URL}/removeCategory`, {
+const deleteCategory = async (categoryData: {categoryId: string }) => {
+    const response = await fetch(`${URL}/deleteCategory`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(category),
+        body: JSON.stringify(categoryData),
     });
     const data = await response.json();
     return data;
@@ -52,7 +52,7 @@ const addCategory = async (category: {name: string, parentId: string | null}) =>
 
 export default {
     getCategories,
-    removeCategory,
+    deleteCategory,
     getCategoriesItems,
     addCategory,
 };
