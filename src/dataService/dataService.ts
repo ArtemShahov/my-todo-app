@@ -37,7 +37,7 @@ const getCategoriesItems = async () => {
     return data;
 }
 
-const addCategory = async (category: {name: string, parentId: any}) => {
+const addCategory = async (category: {name: string, parentId: string | null}) => {
     console.log(category);
     const response = await fetch (`${URL}/addCategory`, {
         method: 'POST',

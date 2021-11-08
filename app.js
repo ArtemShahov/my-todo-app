@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const { v4: uuidv4 } = require('uuid');
 
 const path = require('path');
 const port = process.env.PORT || 5050;
@@ -8,7 +9,16 @@ const port = process.env.PORT || 5050;
 const mongoose = require('mongoose');
 mongoose.connect('mongodb+srv://admin:GNff*dYABZY2_Mn@cluster0.3eld3.mongodb.net/myFirstDatabase?');
 
+const createId = () => {
+    return uuidv4()
+    // .slice(0, 6);
+}
+
 const CategorySchema = new mongoose.Schema({
+    id: {
+        type: String,
+        require: true,
+    },
     name: {
         type: String,
         required: true,
@@ -21,6 +31,10 @@ const CategorySchema = new mongoose.Schema({
         type: [String],
         required: true,
     },
+    childrenId: {
+        type: [String],
+        require: true,
+    }
 
 })
 
@@ -39,8 +53,15 @@ app.get('/getCategories', async (req, res) => {
 })
 
 app.post('/addCategory', async (req, res) => {
-    const newCategory = new Category({ ...req.body, items: [] });
+    const { name, parentId } = req.body;
+    const id = createId();
+    const newCategory = new Category({ id, name, parentId, items: [], childrenId: [], });
     await newCategory.save();
+    if (parentId) {
+        const parentCategory = await Category.findOne({id: parentId});
+        parentCategory.childrenId.push(id);
+        parentCategory.save()
+    }
     const categories = await Category.find();
     res.json(categories);
 })

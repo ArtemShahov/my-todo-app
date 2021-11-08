@@ -32,19 +32,19 @@ function Category(props: Props) {
         .filter((item: category_interface) => item.parentId === parentId)
         .map((item: category_interface) => {
           const children = categories.filter(
-            (subItem: category_interface) => subItem.parentId === item._id
+            (subItem: category_interface) => subItem.parentId === item.id
           );
           return (
-            <li key={item._id}>
+            <li key={item.id}>
               <span
                 className={`list-item ${
-                  activeCategoryId === item._id ? "active" : ""
+                  activeCategoryId === item.id ? "active" : ""
                 }`}
-                onClick={() => onClickHandler(item._id)}
+                onClick={() => onClickHandler(item.id)}
               >
                 {item.name}
               </span>
-              {!!children.length && <Category {...props} parentId={item._id} />}
+              {!!children.length && <Category {...props} parentId={item.id} />}
             </li>
           );
         })}
