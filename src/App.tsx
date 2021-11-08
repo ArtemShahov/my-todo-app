@@ -1,10 +1,10 @@
-import Categories from './components/Categories';
 import React from 'react';
 import './App.css';
+import Main from './components/base/Main';
 
 function App() {
   return (
-    <Categories />
+    <Main />
   );
 }
 

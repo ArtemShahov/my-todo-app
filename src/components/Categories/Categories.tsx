@@ -14,17 +14,14 @@ import selectors from "./state/selectors";
 import { RootState } from "../../store/types";
 
 const mapStateToProps = (state: RootState) => ({
-  activeCategoryId: selectors.getActiveCategory(state),
+  activeCategoryId: selectors.getActiveCategoryId(state),
 });
 
 const connector = connect(mapStateToProps, { ...actions });
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-interface Props extends PropsFromRedux {
-}
-
-function Categories(props: Props) {
+function Categories(props: PropsFromRedux) {
   const { loadCategories, deleteCategory, activeCategoryId } = props;
 
   useEffect(() => {
@@ -35,7 +32,7 @@ function Categories(props: Props) {
 
   return (
     <div>
-      <CategoryControl />
+      <CategoryControl activeCategoryId={activeCategoryId} />
       <Modal type={ADD_CATEGORY}>
         <AddCategoryForm />
       </Modal>

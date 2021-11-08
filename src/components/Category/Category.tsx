@@ -7,7 +7,7 @@ import selectors from "../Categories/state/selectors";
 import "./styles.scss";
 
 const mapStateToProps = (state: RootState) => ({
-  activeCategoryId: selectors.getActiveCategory(state),
+  activeCategoryId: selectors.getActiveCategoryId(state),
   categories: selectors.getCategories(state),
 });
 

@@ -28,7 +28,7 @@ const CategorySchema = new mongoose.Schema({
         required: false,
     },
     items: {
-        type: [String],
+        type: [Object],
         required: true,
     },
     childrenId: {

@@ -6,8 +6,8 @@ import actions from "../Categories/state/actions";
 import selectors from "../Categories/state/selectors";
 
 const mapStateToProps = (state: RootState) => ({
-  getFieldValue: (field: any) => selectors.getFieldValue(state, field),
-  parentId: selectors.getActiveCategory(state),
+  getFieldValue: (field: string) => selectors.getFieldValue(state, field),
+  parentId: selectors.getActiveCategoryId(state),
   categories: selectors.getCategories(state),
 });
 
