@@ -1,3 +1,4 @@
+import { todo_interface } from './../../TodoItem/interface';
 import { category_interface } from "./../interfaces";
 /* eslint-disable import/no-anonymous-default-export */
 import dataService from "../../../dataService/dataService";
@@ -36,22 +37,36 @@ const deleteCategory = (categoryId: string) => (dispatch: AppDispatch) => {
   dataService
     .deleteCategory({ categoryId })
     .then((data) => dispatch(actionCreators.setCategories(data)))
-    .then(() => dispatch(actionCreators.setActiveCategory(null)));
+    .then(() => dispatch(actionCreators.setActiveCategory(null)))
+    .then(() => {
+      dataService.getTodoItems().then((data) => {
+        dispatch(actionCreators.setTodoItems(data));
+      });
+    });
 };
 
 const addTodoItem =
   (todoItemData: { title: string; content: string; parentId: string }) =>
   (dispatch: AppDispatch) => {
-    dataService.addTodoItem(todoItemData)
-    .then((data: category_interface[]) => {
-      dispatch(actionCreators.setTodoItems(data));
-    })
-    .then(() => {
-      dataService.getCategories().then((data) => {
-        dispatch(actionCreators.setCategories(data));
+    dataService
+      .addTodoItem(todoItemData)
+      .then((data: category_interface[]) => {
+        dispatch(actionCreators.setTodoItems(data));
+      })
+      .then(() => {
+        dataService.getCategories().then((data) => {
+          dispatch(actionCreators.setCategories(data));
+        });
       });
-    })
   };
+
+  const deleteTodoItem = (todoItem: {id: string, parentId: string}) => (dispatch: AppDispatch) => {
+    dataService.deleteTodoItem(todoItem)
+    .then((data) => {
+      dispatch(actionCreators.setCategories(data.categories));
+      dispatch(actionCreators.setTodoItems(data.todoItems));
+    })
+  }
 
 export default {
   loadCategories,
@@ -60,4 +75,5 @@ export default {
   addCategory,
   deleteCategory,
   addTodoItem,
+  deleteTodoItem,
 };

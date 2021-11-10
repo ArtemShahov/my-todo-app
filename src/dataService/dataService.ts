@@ -78,6 +78,18 @@ const addTodoItem = async (todoItemData: {
   return data;
 };
 
+const deleteTodoItem = async (todoItemData: {id: string, parentId: string}) => {
+  const response = await fetch(`${URL}/deleteTodoItem`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(todoItemData),
+  });
+  const data = await response.json();
+  return data;
+};
+
 export default {
   getCategories,
   getTodoItems,
@@ -85,4 +97,5 @@ export default {
   getCategoriesItems,
   addCategory,
   addTodoItem,
+  deleteTodoItem,
 };

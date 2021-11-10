@@ -49,7 +49,11 @@ const TodoItemsSchema = new mongoose.Schema({
     content: {
         type: String,
         require: true,
-    }
+    },
+    parentId: {
+        type: String,
+        require: true,
+    },
 
 });
 
@@ -87,32 +91,36 @@ app.post('/addCategory', async (req, res) => {
     res.json(categories);
 });
 
-async function deleteTodoItem(id) {
-    const todoItem = await TodoItem.findOne({id});
-    await todoItem.remove();
+async function deleteTodoItem(parentId) {
+    const todoItems = await TodoItem.find({ parentId });
+    console.log('id', parentId);
+    console.log('items', todoItems)
+    todoItems.forEach(item => item.remove());
 }
 
 app.post('/deleteCategory', async (req, res) => {
+
     const { categoryId: id } = req.body;
+    let categories = await Category.find();
+    const parent = categories.find((category => category.childrenId.includes(id)));
+
     async function delCategory(id) {
         const category = await Category.findOne({ id: id });
-        const { childrenId, itemsId } = category;
-        if (itemsId.length) {
-            itemsId.forEach(itemId => deleteTodoItem(itemId));
-        }
+        const { childrenId } = category;
+        deleteTodoItem(id);
         if (childrenId.length) {
             childrenId.forEach(itemId => delCategory(itemId));
         }
         await category.remove();
     }
+
     await delCategory(id);
-    let categories = await Category.find();
-    const parent = categories.find((category => category.childrenId.includes(id)));
+
     if (parent) {
-        const parentCategory = await Category.findOne({id: parent.id});
+        const parentCategory = await Category.findOne({ id: parent.id });
         const childIndex = parentCategory.childrenId.indexOf(id);
         parentCategory.childrenId.splice(childIndex, 1);
-        await parentCategory.updateOne({ childrenId: parentCategory.childrenId});
+        await parentCategory.updateOne({ childrenId: parentCategory.childrenId });
         categories = await Category.find();
     }
     res.json(categories);
@@ -127,12 +135,28 @@ app.post('/addTodoItem', async (req, res) => {
     await category.itemsId.push(id);
     await category.save();
 
-    const newTodoItem = new TodoItem({ id, title, content });
+    const newTodoItem = new TodoItem({ id, title, content, parentId });
     await newTodoItem.save();
 
     const todoItems = await TodoItem.find();
     res.json(todoItems);
 });
+
+app.post('/deleteTodoItem', async (req, res) => {
+    const { id, parentId } = req.body;
+    const todoItem = await TodoItem.findOne({ id });
+    const category = await Category.findOne({ id: parentId });
+
+    await todoItem.remove();
+    const itemIndex = category.itemsId.indexOf(id);
+    category.itemsId.splice(itemIndex, 1);
+    await category.save();
+
+    const todoItems = await TodoItem.find();
+    const categories = await Category.find();
+
+    res.json({ categories, todoItems });
+})
 
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
