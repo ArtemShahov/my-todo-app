@@ -32,10 +32,6 @@ function Main (props: PropsFromRedux) {
             todoItems
             .filter((item: todo_interface) => item.parentId === activeCategory.id)
             .map((item: todo_interface) => <TodoItem {...item} />)
-            // activeCategory.itemsId.map((itemId: string) => {
-            //     const todoItem = todoItems.find((item: todo_interface) => item.id === itemId);
-            //     return <TodoItem title={todoItem.title} content={todoItem.content} />
-            // })
          : 'choose'}
     </main>);
     
