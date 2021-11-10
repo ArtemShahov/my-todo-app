@@ -91,14 +91,23 @@ app.post('/deleteCategory', async (req, res) => {
     const { categoryId: id } = req.body;
     async function delCategory(id) {
         const category = await Category.findOne({ id: id });
+        console.log('delete', category);
         const { childrenId } = category;
         if (childrenId.length) {
-            childrenId.forEach(item => delCategory(item));
+            childrenId.forEach(itemId => delCategory(itemId));
         }
         await category.remove();
     }
     await delCategory(id);
-    const categories = await Category.find();
+    let categories = await Category.find();
+    const parent = categories.find((category => category.childrenId.includes(id)));
+    if (parent) {
+        const parentCategory = await Category.findOne({id: parent.id});
+        const childIndex = parentCategory.childrenId.indexOf(id);
+        parentCategory.childrenId.splice(childIndex, 1);
+        await parentCategory.updateOne({ childrenId: parentCategory.childrenId});
+        categories = await Category.find();
+    }
     res.json(categories);
 });
 

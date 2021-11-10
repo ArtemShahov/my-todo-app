@@ -65,7 +65,7 @@ function Form(props: Props) {
         clearForm();
     }
   return (
-    <form>
+    <form autoComplete="off">
       {formFields.map((field: FormComponentField) => (
         <label key={field.name}>
           {field.label}

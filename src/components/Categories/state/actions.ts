@@ -6,10 +6,10 @@ import actionCreators from "./actionCreators";
 import { ADD_CATEGORY } from "../../common/Modal/state/modalTypes";
 import modalActions from "../../common/Modal/state/actions";
 
-const loadData = () => (dispatch: AppDispatch) => {
-  loadCategories();
-  loadTodoItems();
-}
+// const loadData = () => (dispatch: AppDispatch) => {
+//   loadCategories();
+//   loadTodoItems();
+// }
 
 const loadCategories = () => (dispatch: AppDispatch) => {
   dataService.getCategories().then((data) => {

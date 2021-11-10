@@ -20,8 +20,8 @@ interface Props extends PropsFromRedux {
 function AddToDoItemForm(props: Props) {
   const { parent, close, addTodoItem } = props;
   const fields = [
-    { name: "title", label: "To do title", placeHolder: "Enter title" },
-    { name: "content", label: "To do content", placeHolder: "Enter content" },
+    { name: "title", label: "To do title", placeHolder: "Enter title", },
+    { name: "content", label: "To do content", placeHolder: "Enter content", },
   ];
 
   function submitFunc(dataFields: {title: string, content: string,  parentId: string}) {
