@@ -4,7 +4,12 @@ import dataService from "../../../dataService/dataService";
 import { AppDispatch } from "../../../store/types";
 import actionCreators from "./actionCreators";
 import { ADD_CATEGORY } from "../../common/Modal/state/modalTypes";
-import modalActions from '../../common/Modal/state/actions';
+import modalActions from "../../common/Modal/state/actions";
+
+const loadData = () => (dispatch: AppDispatch) => {
+  loadCategories();
+  loadTodoItems();
+}
 
 const loadCategories = () => (dispatch: AppDispatch) => {
   dataService.getCategories().then((data) => {
@@ -12,14 +17,15 @@ const loadCategories = () => (dispatch: AppDispatch) => {
   });
 };
 
+const loadTodoItems = () => (dispatch: AppDispatch) => {
+  dataService.getTodoItems().then((data) => {
+    dispatch(actionCreators.setTodoItems(data));
+  });
+};
+
 const setActiveCategory = (categoryId: string) => (dispatch: AppDispatch) => {
   dispatch(actionCreators.setActiveCategory(categoryId));
 };
-
-const changeInputValue =
-  (field: string, value: string) => (dispatch: AppDispatch) => {
-    dispatch(actionCreators.changeInputValue({ field, value }));
-  };
 
 const addCategory =
   (name: string, parentId: any) => (dispatch: AppDispatch) => {
@@ -28,20 +34,30 @@ const addCategory =
       .then((data: category_interface[]) => {
         dispatch(actionCreators.setCategories(data));
       });
-      modalActions.closeModal(ADD_CATEGORY)
+    modalActions.closeModal(ADD_CATEGORY);
   };
 
-  const deleteCategory = (categoryId: string) => (dispatch: AppDispatch) => {
-    dataService
-    .deleteCategory({categoryId})
+const deleteCategory = (categoryId: string) => (dispatch: AppDispatch) => {
+  dataService
+    .deleteCategory({ categoryId })
     .then((data) => dispatch(actionCreators.setCategories(data)))
-    .then(() =>dispatch(actionCreators.setActiveCategory(null)));
-  }
+    .then(() => dispatch(actionCreators.setActiveCategory(null)));
+};
+
+const addTodoItem =
+  (todoItemData: { title: string; content: string; parentId: string }) =>
+  (dispatch: AppDispatch) => {
+    dataService.addTodoItem(todoItemData).then((data: category_interface[]) => {
+      dispatch(actionCreators.setTodoItems(data));
+    });
+    loadCategories();
+  };
 
 export default {
   loadCategories,
+  loadTodoItems,
   setActiveCategory,
-  changeInputValue,
   addCategory,
   deleteCategory,
+  addTodoItem,
 };

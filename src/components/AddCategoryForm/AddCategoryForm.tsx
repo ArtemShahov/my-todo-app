@@ -6,7 +6,6 @@ import selectors from "../Categories/state/selectors";
 import Form from "../common/Form";
 
 const mapStateToProps = (state: RootState) => ({
-  getFieldValue: (field: string) => selectors.getFieldValue(state, field),
   parent: selectors.getActiveCategory(state),
   parentId: selectors.getActiveCategoryId(state),
 });
@@ -21,8 +20,6 @@ interface Props extends PropsFromRedux {
 
 function AddCategoryForm(props: Props) {
   const {
-    getFieldValue,
-    changeInputValue,
     addCategory,
     parent,
     parentId,
@@ -31,33 +28,17 @@ function AddCategoryForm(props: Props) {
   const parentName = parent ? parent.name : null;
   const categoryNameField = "categoryName";
 
-  function useInputState(field: string) {
-    return {
-      value: getFieldValue(field),
-      onChange: (event: any) => changeInputValue(field, event.target.value),
-    };
-  }
-
-  function clearForm() {
-    changeInputValue(categoryNameField, "");
-  }
-
-  function onSubmitHandler(event: any) {
-    console.log(event);
-    event.preventDefault();
-    addCategory(getFieldValue(categoryNameField), parentId);
-    clearForm();
+  function onSubmitHandler(dataFields: {categoryName: string}) {
+    addCategory( dataFields.categoryName, parentId);
     close();
   }
-
-  const categoryName = useInputState(categoryNameField);
 
   return (
     <div>
       <h4>Add new category{parentName ? ` in ${parentName}` : ""}</h4>
       <Form
         fields={[
-          { name: categoryNameField, type: "text", label: "Category name", placeHolder: "Enter category name", valueHandler: categoryName },
+          { name: categoryNameField, type: "text", label: "Category name", placeholder: "Enter category name", },
         ]}
         submitFunc={onSubmitHandler}
       />

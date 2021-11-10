@@ -1,20 +1,22 @@
 import { category_interface } from "../interfaces";
 import { action_interface } from "./../../../store/interfaces";
 import {
-  CHANGE_INPUT_VALUE,
   SET_ACTIVE_CATEGORY,
   GET_CATEGORIES,
+  SET_TODO_ITEMS,
 } from "./actionTypes";
 
 export interface categoriesReducer_interface {
   allCategories: category_interface[];
   activeCategory: string | null;
   addCategoryForm: any;
+  allTodoItems: [];
 }
 
 const initialState: categoriesReducer_interface = {
   allCategories: [],
   activeCategory: null,
+  allTodoItems: [],
   addCategoryForm: {
     categoryName: "",
     title: "",
@@ -33,6 +35,12 @@ export const categoriesReducer = (
         allCategories: action.payload,
       };
     }
+    case SET_TODO_ITEMS: {
+      return {
+        ...state,
+        allTodoItems: action.payload,
+      };
+    }
     case SET_ACTIVE_CATEGORY: {
       let result = action.payload;
       const currentActiveCategory = state.activeCategory;
@@ -40,17 +48,6 @@ export const categoriesReducer = (
       return {
         ...state,
         activeCategory: result,
-      };
-    }
-    case CHANGE_INPUT_VALUE: {
-      const { field, value } = action.payload;
-      const { addCategoryForm } = state;
-      addCategoryForm[field] = value;
-      return {
-        ...state,
-        addCategoryForm: {
-          ...addCategoryForm,
-        },
       };
     }
     default:
