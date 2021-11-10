@@ -1,3 +1,4 @@
+import { Paper } from "@mui/material";
 import Box from "@mui/system/Box";
 import React from "react";
 import ThemeToggler from "../../common/ThemeToggler";
@@ -6,6 +7,7 @@ import "./styles.scss";
 
 function Header() {
   return (
+    <Paper elevation={3}>
     <Box 
     p={2}
     sx={{
@@ -16,6 +18,7 @@ function Header() {
       <Logo />
       <ThemeToggler />
     </Box>
+      </Paper>
   );
 }
 

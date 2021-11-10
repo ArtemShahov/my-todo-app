@@ -19,7 +19,7 @@ function ThemeToggler(props: any) {
 }
 
 const mapStateToProps = (state: object) => ({
-  mode: selectors.isDarkMode(state),
+  mode: selectors.mode(state),
 });
 
 export default connect(mapStateToProps, { ...actions })(ThemeToggler);

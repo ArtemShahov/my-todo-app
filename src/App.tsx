@@ -17,7 +17,7 @@ function App(props: Props) {
     () =>
       createTheme({
         palette: {
-          mode: mode ? "dark" : "light",
+          mode: mode === "dark" ? "dark" : "light",
         },
       }),
     [mode]
@@ -25,29 +25,25 @@ function App(props: Props) {
   return (
     <ThemeProvider theme={theme}>
       <Box
+        p={2}
         sx={{
           bgcolor: "background.default",
           color: "text.primary",
           width: "100vw",
-          minHeight: "100vh",
+          height: "100vh",
         }}
       >
-        <Box
-        sx={{
-          margin: '0 auto',
-          maxWidth: '1000px',
-        }}
-        >
+        <div className="app">
           <Header />
           <Main />
-        </Box>
+        </div>
       </Box>
     </ThemeProvider>
   );
 }
 
 const mapStateToProps = (state: object) => ({
-  mode: selectors.isDarkMode(state),
+  mode: selectors.mode(state),
 });
 
 export default connect(mapStateToProps)(App);

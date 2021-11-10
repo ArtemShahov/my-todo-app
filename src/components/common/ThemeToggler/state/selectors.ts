@@ -1,7 +1,7 @@
-const isDarkMode = (store: any) => store.themeReducer.darkMode;
+const mode = (store: any) => store.themeReducer.mode;
 
 const selector = {
-    isDarkMode,
+    mode,
 };
 
 export default selector;

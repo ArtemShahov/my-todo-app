@@ -7,6 +7,7 @@ import actions from "../../Categories/state/actions";
 import selectors from "../../Categories/state/selectors";
 import TodoItem from "../../TodoItem";
 import { todo_interface } from "../../TodoItem/interface";
+import "./styles.scss";
 
 const mapStateToProps = (state: RootState) => ({
     activeCategory: selectors.getActiveCategory(state),
@@ -25,7 +26,7 @@ function Main (props: PropsFromRedux) {
         loadTodoItems();
     }, []);
 
-    return (<main>
+    return (<main className="main">
         <Categories />
         {activeCategory ? 
             todoItems

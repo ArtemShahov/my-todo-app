@@ -1,4 +1,5 @@
 import React from "react";
+import {Button as MuiButton } from '@mui/material';
 
 interface Props {
   text: string;
@@ -9,9 +10,9 @@ interface Props {
 function Button(props: Props) {
   const { text, fn, disabled } = props;
   return (
-    <button type="button" disabled={disabled} onClick={fn}>
+    <MuiButton variant="contained" disabled={disabled} onClick={fn}>
       {text}
-    </button>
+    </MuiButton>
   );
 }
 
