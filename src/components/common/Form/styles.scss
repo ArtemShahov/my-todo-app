@@ -1,0 +1,13 @@
+@import "../../../App.scss";
+
+.form {
+    padding: $size * 3;
+    min-width: 300px;
+}
+
+.form__fields {
+    margin-top: $size * 5;
+    display: flex;
+    flex-direction: column;
+    gap: $size * 4;
+}

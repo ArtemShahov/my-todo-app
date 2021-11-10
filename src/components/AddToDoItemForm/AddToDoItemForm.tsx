@@ -19,9 +19,10 @@ interface Props extends PropsFromRedux {
 
 function AddToDoItemForm(props: Props) {
   const { parent, close, addTodoItem } = props;
+  const formTitle = `New "TODO" in category: ${parent?.name}`;
   const fields = [
-    { name: "title", label: "To do title", placeHolder: "Enter title", },
-    { name: "content", label: "To do content", placeHolder: "Enter content", },
+    { name: "title", label: "Title", placeHolder: "Enter title", },
+    { name: "content", label: "Content", placeHolder: "Enter content", },
   ];
 
   function submitFunc(dataFields: {title: string, content: string,  parentId: string}) {
@@ -30,10 +31,8 @@ function AddToDoItemForm(props: Props) {
     close();
   }
   return (
-    <div>
-      <h4>Add new to do item in {parent?.name}</h4>
-      <Form fields={fields} submitFunc={submitFunc} />
-    </div>
+      <Form title={formTitle} fields={fields} submitFunc={submitFunc} />
+
   );
 }
 

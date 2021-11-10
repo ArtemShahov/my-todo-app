@@ -19,30 +19,29 @@ interface Props extends PropsFromRedux {
 }
 
 function AddCategoryForm(props: Props) {
-  const {
-    addCategory,
-    parent,
-    parentId,
-    close,
-  } = props;
+  const { addCategory, parent, parentId, close } = props;
   const parentName = parent ? parent.name : null;
+  const formTitle = `Add new category${parentName ? ` in ${parentName}` : ""}`;
   const categoryNameField = "categoryName";
 
-  function onSubmitHandler(dataFields: {categoryName: string}) {
-    addCategory( dataFields.categoryName, parentId);
+  function onSubmitHandler(dataFields: { categoryName: string }) {
+    addCategory(dataFields.categoryName, parentId);
     close();
   }
 
   return (
-    <div>
-      <h4>Add new category{parentName ? ` in ${parentName}` : ""}</h4>
-      <Form
-        fields={[
-          { name: categoryNameField, type: "text", label: "Category name", placeholder: "Enter category name", },
-        ]}
-        submitFunc={onSubmitHandler}
-      />
-    </div>
+    <Form
+      title={formTitle}
+      fields={[
+        {
+          name: categoryNameField,
+          type: "text",
+          label: "Category name",
+          placeholder: "Enter category name",
+        },
+      ]}
+      submitFunc={onSubmitHandler}
+    />
   );
 }
 

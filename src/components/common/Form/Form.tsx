@@ -1,8 +1,11 @@
+import { Paper, TextField, Typography } from "@mui/material";
 import React from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "../../../store/types";
 import actions from "./state/actions";
 import selectors from "./state/selectors";
+import Button from "../Button";
+import "./styles.scss";
 
 const mapStateToProps = (state: RootState) => ({
   getFieldValue: (field: string) => selectors.getFieldValue(state, field),
@@ -29,12 +32,13 @@ export type FormComponentField = {
 };
 
 interface Props extends PropsFromRedux {
+  title: string;
   fields: field[];
   submitFunc: (event: any) => void;
 }
 
 function Form(props: Props) {
-  const { fields, submitFunc, getFieldValue, changeInputValue } = props;
+  const { title, fields, submitFunc, getFieldValue, changeInputValue } = props;
 
   const useInputState = (field: field): FormComponentField => {
     return {
@@ -48,34 +52,47 @@ function Form(props: Props) {
     };
   };
 
-  
   const formFields = fields.map(useInputState);
-  
+
   const clearForm = () => {
     formFields.forEach((field: FormComponentField) => {
-      changeInputValue(field.name, '');
-    })
-  }
+      changeInputValue(field.name, "");
+    });
+  };
 
-    function onSubmit(event: any) {
-        event.preventDefault();
-      const fieldsData = formFields.reduce((acc: any, field: FormComponentField) => {
-        return {...acc, [field.name]: field.value}},{})
-        submitFunc(fieldsData);
-        clearForm();
-    }
+  function onSubmit(event: any) {
+    event.preventDefault();
+    const fieldsData = formFields.reduce(
+      (acc: any, field: FormComponentField) => {
+        return { ...acc, [field.name]: field.value };
+      },
+      {}
+    );
+    submitFunc(fieldsData);
+    clearForm();
+  }
   return (
-    <form autoComplete="off">
-      {formFields.map((field: FormComponentField) => (
-        <label key={field.name}>
-          {field.label}
-          <input {...field} />
-        </label>
-      ))}
-      <button type="submit" onClick={onSubmit}>
-        Отправить
-      </button>
-    </form>
+    <Paper elevation={3}>
+      <div className="form">
+      <Typography variant="h5" gutterBottom component="div">{title}</Typography>
+        <form autoComplete="off" className="form__fields">
+          {formFields.map((field: FormComponentField) => (
+            <TextField
+              key={field.name}
+              label={field.label}
+              value={field.value}
+              onChange={field.onChange}
+              variant="outlined"
+            />
+            // <label key={field.name}>
+            //   {field.label}
+            //   <input {...field} />
+            // </label>
+          ))}
+          <Button text="Send" fn={onSubmit} />
+        </form>
+      </div>
+    </Paper>
   );
 }
 
