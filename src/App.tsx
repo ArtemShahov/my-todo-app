@@ -3,8 +3,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import React from "react";
 import { connect } from "react-redux";
 import "./App.scss";
+import Header from "./components/base/Header";
 import Main from "./components/base/Main";
-import ThemeToggler from "./components/common/ThemeToggler";
 import selectors from "./components/common/ThemeToggler/state/selectors";
 
 interface Props {
@@ -32,8 +32,15 @@ function App(props: Props) {
           minHeight: "100vh",
         }}
       >
-        <ThemeToggler />
-        <Main />
+        <Box
+        sx={{
+          margin: '0 auto',
+          maxWidth: '1000px',
+        }}
+        >
+          <Header />
+          <Main />
+        </Box>
       </Box>
     </ThemeProvider>
   );
