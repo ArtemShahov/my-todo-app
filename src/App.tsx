@@ -1,11 +1,46 @@
-import React from 'react';
-import './App.css';
-import Main from './components/base/Main';
+import { Box } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import React from "react";
+import { connect } from "react-redux";
+import "./App.scss";
+import Main from "./components/base/Main";
+import ThemeToggler from "./components/common/ThemeToggler";
+import selectors from "./components/common/ThemeToggler/state/selectors";
 
-function App() {
+interface Props {
+  mode: string;
+}
+
+function App(props: Props) {
+  const { mode } = props;
+  const theme = React.useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: mode ? "dark" : "light",
+        },
+      }),
+    [mode]
+  );
   return (
-    <Main />
+    <ThemeProvider theme={theme}>
+      <Box
+        sx={{
+          bgcolor: "background.default",
+          color: "text.primary",
+          width: "100vw",
+          minHeight: "100vh",
+        }}
+      >
+        <ThemeToggler />
+        <Main />
+      </Box>
+    </ThemeProvider>
   );
 }
 
-export default App;
+const mapStateToProps = (state: object) => ({
+  mode: selectors.isDarkMode(state),
+});
+
+export default connect(mapStateToProps)(App);
