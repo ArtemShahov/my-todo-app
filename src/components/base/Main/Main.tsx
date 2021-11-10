@@ -24,7 +24,7 @@ function Main (props: PropsFromRedux) {
 
     return (<main>
         <Categories />
-        {activeCategory && (activeCategory.name + ' ' + activeCategory.items)}
+        {activeCategory && (activeCategory.name + ' ' + activeCategory.itemsId)}
     </main>);
     
 

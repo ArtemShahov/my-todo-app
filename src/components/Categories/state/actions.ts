@@ -6,11 +6,6 @@ import actionCreators from "./actionCreators";
 import { ADD_CATEGORY } from "../../common/Modal/state/modalTypes";
 import modalActions from "../../common/Modal/state/actions";
 
-// const loadData = () => (dispatch: AppDispatch) => {
-//   loadCategories();
-//   loadTodoItems();
-// }
-
 const loadCategories = () => (dispatch: AppDispatch) => {
   dataService.getCategories().then((data) => {
     dispatch(actionCreators.setCategories(data));
@@ -47,10 +42,15 @@ const deleteCategory = (categoryId: string) => (dispatch: AppDispatch) => {
 const addTodoItem =
   (todoItemData: { title: string; content: string; parentId: string }) =>
   (dispatch: AppDispatch) => {
-    dataService.addTodoItem(todoItemData).then((data: category_interface[]) => {
+    dataService.addTodoItem(todoItemData)
+    .then((data: category_interface[]) => {
       dispatch(actionCreators.setTodoItems(data));
-    });
-    loadCategories();
+    })
+    .then(() => {
+      dataService.getCategories().then((data) => {
+        dispatch(actionCreators.setCategories(data));
+      });
+    })
   };
 
 export default {

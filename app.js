@@ -27,7 +27,7 @@ const CategorySchema = new mongoose.Schema({
         type: String,
         required: false,
     },
-    items: {
+    itemsId: {
         type: [Object],
         required: true,
     },
@@ -76,7 +76,7 @@ app.get('/getTodoItems', async (req, res) => {
 app.post('/addCategory', async (req, res) => {
     const { name, parentId } = req.body;
     const id = createId();
-    const newCategory = new Category({ id, name, parentId, items: [], childrenId: [], });
+    const newCategory = new Category({ id, name, parentId, itemsId: [], childrenId: [], });
     await newCategory.save();
     if (parentId) {
         const parentCategory = await Category.findOne({ id: parentId });
@@ -87,12 +87,19 @@ app.post('/addCategory', async (req, res) => {
     res.json(categories);
 });
 
+async function deleteTodoItem(id) {
+    const todoItem = await TodoItem.findOne({id});
+    await todoItem.remove();
+}
+
 app.post('/deleteCategory', async (req, res) => {
     const { categoryId: id } = req.body;
     async function delCategory(id) {
         const category = await Category.findOne({ id: id });
-        console.log('delete', category);
-        const { childrenId } = category;
+        const { childrenId, itemsId } = category;
+        if (itemsId.length) {
+            itemsId.forEach(itemId => deleteTodoItem(itemId));
+        }
         if (childrenId.length) {
             childrenId.forEach(itemId => delCategory(itemId));
         }
@@ -117,7 +124,7 @@ app.post('/addTodoItem', async (req, res) => {
     const id = createId();
 
     const category = await Category.findOne({ id: parentId });
-    await category.items.push(id);
+    await category.itemsId.push(id);
     await category.save();
 
     const newTodoItem = new TodoItem({ id, title, content });
