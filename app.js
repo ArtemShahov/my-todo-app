@@ -121,8 +121,8 @@ app.post('/deleteCategory', async (req, res) => {
         const childIndex = parentCategory.childrenId.indexOf(id);
         parentCategory.childrenId.splice(childIndex, 1);
         await parentCategory.updateOne({ childrenId: parentCategory.childrenId });
-        categories = await Category.find();
     }
+    categories = await Category.find();
     res.json(categories);
 });
 
@@ -139,7 +139,8 @@ app.post('/addTodoItem', async (req, res) => {
     await newTodoItem.save();
 
     const todoItems = await TodoItem.find();
-    res.json(todoItems);
+    const categories = await Category.find();
+    res.json({ categories, todoItems });
 });
 
 app.post('/deleteTodoItem', async (req, res) => {

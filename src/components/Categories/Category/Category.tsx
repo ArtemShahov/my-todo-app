@@ -8,11 +8,11 @@ import {
 } from "@mui/material";
 import React from "react";
 import { connect, ConnectedProps } from "react-redux";
-import { RootState } from "../../store/types";
-import { category_interface } from "../Categories/interfaces";
+import { RootState } from "../../../store/types";
+import { category_interface } from "../interfaces";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
-import actions from "../Categories/state/actions";
-import selectors from "../Categories/state/selectors";
+import actions from "../state/actions";
+import selectors from "../state/selectors";
 import "./styles.scss";
 import { Link } from "react-router-dom";
 

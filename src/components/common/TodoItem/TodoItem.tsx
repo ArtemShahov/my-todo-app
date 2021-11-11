@@ -1,7 +1,7 @@
 import React from "react";
 import { connect, ConnectedProps } from "react-redux";
-import { RootState } from "../../store/types";
-import actions from "../Categories/state/actions";
+import { RootState } from "../../../store/types";
+import actions from "../../Categories/state/actions";
 
 const mapStateToProps = (state: RootState) => ({
   // activeCategory: selectors.getActiveCategory(state),

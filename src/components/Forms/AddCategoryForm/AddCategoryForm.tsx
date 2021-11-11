@@ -1,9 +1,9 @@
 import React from "react";
 import { connect, ConnectedProps } from "react-redux";
-import { RootState } from "../../store/types";
-import actions from "../Categories/state/actions";
-import selectors from "../Categories/state/selectors";
-import Form from "../common/Form";
+import { RootState } from "../../../store/types";
+import actions from "../../Categories/state/actions";
+import selectors from "../../Categories/state/selectors";
+import Form from "../../common/Form";
 
 const mapStateToProps = (state: RootState) => ({
   parent: selectors.getActiveCategory(state),

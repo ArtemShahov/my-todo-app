@@ -5,8 +5,8 @@ import { RootState } from "../../../store/types";
 import Categories from "../../Categories";
 import actions from "../../Categories/state/actions";
 import selectors from "../../Categories/state/selectors";
-import TodoItem from "../../TodoItem";
-import { todo_interface } from "../../TodoItem/interface";
+import TodoItem from "../../common/TodoItem";
+import { todo_interface } from "../../common/TodoItem/interface";
 import "./styles.scss";
 
 const mapStateToProps = (state: RootState) => ({

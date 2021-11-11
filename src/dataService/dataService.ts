@@ -1,100 +1,73 @@
+import { todo_interface } from "../components/common/TodoItem/interface";
+import { category_interface } from "./../components/Categories/interfaces";
 /* eslint-disable import/no-anonymous-default-export */
 
 const URL = "http://localhost:5050";
 
-const getCategories = async () => {
-  const response = await fetch(`${URL}/getCategories`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const data = await response.json();
-  return data;
-};
+const getRequest =
+  (path: string) =>
+  async <T>(): Promise<T> => {
+    const requestURL = URL + path;
+    const response = await fetch(requestURL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    return data;
+  };
 
-const getTodoItems = async () => {
-    const response = await fetch(`${URL}/getTodoItems`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await response.json();
-      return data;
-}
+const postRequest =
+  (path: string) =>
+  async <RequestType, ResponseType>(
+    requestData: RequestType
+  ): Promise<ResponseType> => {
+    const requestURL = URL + path;
+    const response = await fetch(requestURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestData),
+    });
+    const data = await response.json();
+    return data;
+  };
 
-const deleteCategory = async (categoryData: { categoryId: string }) => {
-  const response = await fetch(`${URL}/deleteCategory`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(categoryData),
-  });
-  const data = await response.json();
-  return data;
-};
+const getCategories: () => Promise<category_interface[]> =
+  getRequest("/getCategories");
 
-const getCategoriesItems = async () => {
-  const response = await fetch(`${URL}/getCategoriesItems`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const data = await response.json();
-  return data;
-};
+const getTodoItems: () => Promise<todo_interface[]> =
+  getRequest("/getTodoItems");
 
-const addCategory = async (category: {
+const deleteCategory: (categoryData: {
+  categoryId: string;
+}) => Promise<category_interface[]> = postRequest("/deleteCategory");
+
+const addCategory: (category: {
   name: string;
   parentId: string | null;
-}) => {
-  const response = await fetch(`${URL}/addCategory`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(category),
-  });
-  const data = await response.json();
-  return data;
-};
+}) => Promise<category_interface[]> = postRequest("/addCategory");
 
-const addTodoItem = async (todoItemData: {
+const addTodoItem: (todoItem: {
   title: string;
   content: string;
   parentId: string;
-}) => {
-  const response = await fetch(`${URL}/addTodoItem`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(todoItemData),
-  });
-  const data = await response.json();
-  return data;
-};
+}) => Promise<{
+  categories: category_interface[];
+  todoItems: todo_interface[];
+}> = postRequest("/addTodoItem");
 
-const deleteTodoItem = async (todoItemData: {id: string, parentId: string}) => {
-  const response = await fetch(`${URL}/deleteTodoItem`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(todoItemData),
-  });
-  const data = await response.json();
-  return data;
-};
+const deleteTodoItem: (todoItem: { id: string; parentId: string }) => Promise<{
+  categories: category_interface[];
+  todoItems: todo_interface[];
+}> = postRequest("/deleteTodoItem");
 
 export default {
   getCategories,
   getTodoItems,
   deleteCategory,
-  getCategoriesItems,
   addCategory,
   addTodoItem,
   deleteTodoItem,

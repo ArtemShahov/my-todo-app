@@ -1,4 +1,4 @@
-import { todo_interface } from './../../TodoItem/interface';
+import { todo_interface } from '../../common/TodoItem/interface';
 import { category_interface } from "./../interfaces";
 /* eslint-disable import/no-anonymous-default-export */
 import dataService from "../../../dataService/dataService";
@@ -50,13 +50,9 @@ const addTodoItem =
   (dispatch: AppDispatch) => {
     dataService
       .addTodoItem(todoItemData)
-      .then((data: category_interface[]) => {
-        dispatch(actionCreators.setTodoItems(data));
-      })
-      .then(() => {
-        dataService.getCategories().then((data) => {
-          dispatch(actionCreators.setCategories(data));
-        });
+      .then((data: {categories: category_interface[], todoItems: todo_interface[]}) => {
+        dispatch(actionCreators.setTodoItems(data.todoItems));
+        dispatch(actionCreators.setCategories(data.categories));
       });
   };
 

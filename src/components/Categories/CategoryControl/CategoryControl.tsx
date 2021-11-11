@@ -1,14 +1,14 @@
 import { Paper } from "@mui/material";
 import React from "react";
 import { connect } from "react-redux";
-import Button from "../common/Button";
-import actions from "../common/Modal/state/actions";
+import Button from "../../common/Button";
+import actions from "../../common/Modal/state/actions";
 import {
   ADD_CATEGORY,
   ADD_TODO_ITEM,
   DELETE_CATEGORY,
   ModalName,
-} from "../common/Modal/state/modalTypes";
+} from "../../common/Modal/state/modalTypes";
 
 interface Props {
   openModal: (modalName: ModalName) => void;

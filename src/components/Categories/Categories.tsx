@@ -1,19 +1,19 @@
 import React, { useEffect } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import actions from "./state/actions";
-import Category from "../Category";
+import Category from "./Category";
 import Modal from "../common/Modal";
 import {
   ADD_CATEGORY,
   DELETE_CATEGORY,
   ADD_TODO_ITEM,
 } from "../common/Modal/state/modalTypes";
-import CategoryControl from "../CategoryControl";
-import AddCategoryForm from "../AddCategoryForm";
+import CategoryControl from "./CategoryControl";
+import AddCategoryForm from "../Forms/AddCategoryForm";
 import Confirm from "../common/Confirm";
 import selectors from "./state/selectors";
 import { RootState } from "../../store/types";
-import AddToDoItemForm from "../AddToDoItemForm";
+import AddToDoItemForm from "../Forms/AddToDoItemForm";
 import { Paper } from "@mui/material";
 
 const mapStateToProps = (state: RootState) => ({
