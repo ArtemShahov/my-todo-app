@@ -27,7 +27,7 @@ function Category(props: Props) {
   }
 
   return (
-    <ul>
+    <ul className="category-list">
       {categories
         .filter((item: category_interface) => item.parentId === parentId)
         .map((item: category_interface) => {
@@ -37,7 +37,7 @@ function Category(props: Props) {
           return (
             <li key={item.id}>
               <span
-                className={`list-item ${
+                className={`category-list__item ${
                   activeCategoryId === item.id ? "active" : ""
                 }`}
                 onClick={() => onClickHandler(item.id)}

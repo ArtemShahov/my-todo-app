@@ -10,10 +10,11 @@ import {
 } from "../common/Modal/state/modalTypes";
 import CategoryControl from "../CategoryControl";
 import AddCategoryForm from "../AddCategoryForm";
-import Confirm from '../common/Confirm';
+import Confirm from "../common/Confirm";
 import selectors from "./state/selectors";
 import { RootState } from "../../store/types";
 import AddToDoItemForm from "../AddToDoItemForm";
+import { Paper } from "@mui/material";
 
 const mapStateToProps = (state: RootState) => ({
   activeCategoryId: selectors.getActiveCategoryId(state),
@@ -25,7 +26,8 @@ const connector = connect(mapStateToProps, { ...actions });
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function Categories(props: PropsFromRedux) {
-  const { loadCategories, deleteCategory, activeCategoryId, activeCategory } = props;
+  const { loadCategories, deleteCategory, activeCategoryId, activeCategory } =
+    props;
 
   useEffect(() => {
     loadCategories();
@@ -36,16 +38,21 @@ function Categories(props: PropsFromRedux) {
   return (
     <div>
       <CategoryControl activeCategoryId={activeCategoryId} />
+      <Paper>
+        <Category parentId={null} />
+      </Paper>
       <Modal type={ADD_CATEGORY}>
         <AddCategoryForm />
       </Modal>
       <Modal type={DELETE_CATEGORY}>
-        <Confirm title={`delete ${activeCategory?.name}?`} callback={delCategory} />
+        <Confirm
+          title={`delete ${activeCategory?.name}?`}
+          callback={delCategory}
+        />
       </Modal>
       <Modal type={ADD_TODO_ITEM}>
         <AddToDoItemForm />
       </Modal>
-      <Category parentId={null} />
     </div>
   );
 }
