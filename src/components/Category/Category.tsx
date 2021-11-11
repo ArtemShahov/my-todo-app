@@ -1,10 +1,20 @@
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import {
+  Collapse,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
 import React from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "../../store/types";
 import { category_interface } from "../Categories/interfaces";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
 import actions from "../Categories/state/actions";
 import selectors from "../Categories/state/selectors";
 import "./styles.scss";
+import { Link } from "react-router-dom";
 
 const mapStateToProps = (state: RootState) => ({
   activeCategoryId: selectors.getActiveCategoryId(state),
@@ -22,12 +32,27 @@ interface Props extends PropsFromRedux {
 function Category(props: Props) {
   const { parentId, categories, setActiveCategory, activeCategoryId } = props;
 
+  function checkNested(id: string): boolean {
+    function getParentChain(id: string): string[] {
+      const parent = categories.find((item: category_interface) =>
+        item.childrenId.includes(id)
+      );
+      if (parent) {
+        return [parent.id, ...getParentChain(parent.id)]
+      }
+      return [''];
+    }
+    const categoryChain = getParentChain(activeCategoryId);
+    if (categoryChain.includes(id)) return true;
+    return false;
+  }
+
   function onClickHandler(categoryId: string) {
     setActiveCategory(categoryId);
   }
 
   return (
-    <ul className="category-list">
+    <List component="div">
       {categories
         .filter((item: category_interface) => item.parentId === parentId)
         .map((item: category_interface) => {
@@ -35,20 +60,46 @@ function Category(props: Props) {
             (subItem: category_interface) => subItem.parentId === item.id
           );
           return (
-            <li key={item.id}>
-              <span
-                className={`category-list__item ${
-                  activeCategoryId === item.id ? "active" : ""
-                }`}
-                onClick={() => onClickHandler(item.id)}
-              >
-                {item.name}
-              </span>
-              {!!children.length && <Category {...props} parentId={item.id} />}
-            </li>
+            <React.Fragment key={item.id}>
+              <Link to={`/${item.name}`} style={{ textDecoration: "none" }}>
+                <ListItemButton
+                  sx={{ color: "text.primary" }}
+                  onClick={() => {
+                    onClickHandler(item.id);
+                  }}
+                >
+                  <ListItemIcon>
+                    <InboxIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={item.name}
+                    sx={{
+                      fontWeight: "700",
+                    }}
+                  />
+                  {!!children.length &&
+                    (activeCategoryId === item.id ? (
+                      <ExpandLess />
+                    ) : (
+                      <ExpandMore />
+                    ))}
+                </ListItemButton>
+              </Link>
+              {!!children.length && (
+                <Collapse
+                  in={activeCategoryId === item.id || checkNested(item.id)}
+                  timeout="auto"
+                  unmountOnExit
+                >
+                  <div className="nested-list">
+                    <Category {...props} parentId={item.id} />
+                  </div>
+                </Collapse>
+              )}
+            </React.Fragment>
           );
         })}
-    </ul>
+    </List>
   );
 }
 

@@ -10,32 +10,33 @@ import { todo_interface } from "../../TodoItem/interface";
 import "./styles.scss";
 
 const mapStateToProps = (state: RootState) => ({
-    activeCategory: selectors.getActiveCategory(state),
-    todoItems: selectors.getTodoItems(state),
-  });
+  activeCategory: selectors.getActiveCategory(state),
+  todoItems: selectors.getTodoItems(state),
+});
 
-const connector = connect(mapStateToProps, {...actions});
+const connector = connect(mapStateToProps, { ...actions });
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
+function Main(props: PropsFromRedux) {
+  const { activeCategory, loadTodoItems, todoItems } = props;
 
-function Main (props: PropsFromRedux) {
-    const { activeCategory, loadTodoItems, todoItems } = props;
+  useEffect(() => {
+    loadTodoItems();
+  }, []);
 
-    useEffect(() => {
-        loadTodoItems();
-    }, []);
-
-    return (<main className="main">
-        <Categories />
-        {activeCategory ? 
-            todoItems
-            .filter((item: todo_interface) => item.parentId === activeCategory.id)
-            .map((item: todo_interface) => <TodoItem {...item} />)
-         : 'choose'}
-    </main>);
-    
-
+  return (
+    <main className="main">
+      <Categories />
+      {activeCategory
+        ? todoItems
+            .filter(
+              (item: todo_interface) => item.parentId === activeCategory.id
+            )
+            .map((item: todo_interface) => <TodoItem key={item.id} {...item} />)
+        : "choose"}
+    </main>
+  );
 }
 
 export default connector(Main);

@@ -43,8 +43,6 @@ export const categoriesReducer = (
     }
     case SET_ACTIVE_CATEGORY: {
       let result = action.payload;
-      const currentActiveCategory = state.activeCategory;
-      if (result === currentActiveCategory) result = null;
       return {
         ...state,
         activeCategory: result,
