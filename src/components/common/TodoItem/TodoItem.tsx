@@ -33,7 +33,7 @@ function TodoItem(props: Props) {
     <Paper elevation={4} sx={{ p: 2, border: 1, borderColor: "divider" }}>
       <header className="todo-item__header">
         <div className="todo-item__title">
-          <Typography sx={{ m: 0 }} gutterBottom variant="h6" component="div">
+          <Typography sx={{ m: 0, textOverflow: "ellipsis", overflow: "hidden" }} gutterBottom variant="h6" component="div">
             {title}
           </Typography>
           <IconButton>
@@ -44,7 +44,7 @@ function TodoItem(props: Props) {
           <DeleteOutlineIcon />
         </IconButton>
       </header>
-      <Typography variant="body1" color="text.secondary">
+      <Typography sx={{textOverflow: "ellipsis", overflow: "hidden" }} variant="body1" color="text.secondary">
         {content}
       </Typography>
     </Paper>

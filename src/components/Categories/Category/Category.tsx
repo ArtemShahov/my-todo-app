@@ -14,7 +14,6 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import actions from "../state/actions";
 import selectors from "../state/selectors";
 import "./styles.scss";
-import { Link } from "react-router-dom";
 
 const mapStateToProps = (state: RootState) => ({
   activeCategoryId: selectors.getActiveCategoryId(state),
@@ -38,9 +37,9 @@ function Category(props: Props) {
         item.childrenId.includes(id)
       );
       if (parent) {
-        return [parent.id, ...getParentChain(parent.id)]
+        return [parent.id, ...getParentChain(parent.id)];
       }
-      return [''];
+      return [""];
     }
     const categoryChain = getParentChain(activeCategoryId);
     if (categoryChain.includes(id)) return true;
@@ -61,30 +60,30 @@ function Category(props: Props) {
           );
           return (
             <React.Fragment key={item.id}>
-              <Link to={`/${item.name}`} style={{ textDecoration: "none" }}>
-                <ListItemButton
-                  sx={{ color: "text.primary" }}
-                  onClick={() => {
-                    onClickHandler(item.id);
+              <ListItemButton
+                sx={{ color: "text.primary" }}
+                onClick={() => {
+                  onClickHandler(item.id);
+                }}
+              >
+                <ListItemIcon>
+                  <InboxIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary={item.name}
+                  sx={{
+                    fontWeight: "700",
+                    textOverflow: "ellipsis",
+                    overflow: "hidden",
                   }}
-                >
-                  <ListItemIcon>
-                    <InboxIcon />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={item.name}
-                    sx={{
-                      fontWeight: "700",
-                    }}
-                  />
-                  {!!children.length &&
-                    (activeCategoryId === item.id ? (
-                      <ExpandLess />
-                    ) : (
-                      <ExpandMore />
-                    ))}
-                </ListItemButton>
-              </Link>
+                />
+                {!!children.length &&
+                  (activeCategoryId === item.id ? (
+                    <ExpandLess />
+                  ) : (
+                    <ExpandMore />
+                  ))}
+              </ListItemButton>
               {!!children.length && (
                 <Collapse
                   in={activeCategoryId === item.id || checkNested(item.id)}

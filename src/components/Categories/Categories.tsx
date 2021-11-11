@@ -46,7 +46,7 @@ function Categories(props: PropsFromRedux) {
       </Modal>
       <Modal type={DELETE_CATEGORY}>
         <Confirm
-          title={`delete ${activeCategory?.name}?`}
+          title={`Delete category: ${activeCategory?.name}?`}
           callback={delCategory}
         />
       </Modal>

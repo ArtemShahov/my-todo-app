@@ -74,7 +74,7 @@ function Form(props: Props) {
   return (
     <Paper elevation={3}>
       <div className="form">
-      <Typography variant="h5" gutterBottom component="div">{title}</Typography>
+      <Typography sx={{ textOverflow: "ellipsis", overflow: "hidden" }} variant="h5" gutterBottom component="div">{title}</Typography>
         <form autoComplete="off" className="form__fields">
           {formFields.map((field: FormComponentField) => (
             <TextField
