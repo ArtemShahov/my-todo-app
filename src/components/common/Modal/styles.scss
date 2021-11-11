@@ -6,6 +6,7 @@
     position: fixed;
     background-color: rgba(0, 0, 0, .2);
     backdrop-filter: blur(2px);
+    z-index: 1;
 }
 
 .modal.visually-hidden {

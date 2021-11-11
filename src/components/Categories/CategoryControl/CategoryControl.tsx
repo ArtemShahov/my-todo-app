@@ -18,7 +18,7 @@ interface Props {
 function CategoryControl(props: Props) {
   const { openModal, activeCategoryId } = props;
   return (
-    <Paper>
+    <Paper elevation={3}>
       <Button text="Add category" fn={() => openModal(ADD_CATEGORY)} />
       <Button
         text="Delete category"

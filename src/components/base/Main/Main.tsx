@@ -5,8 +5,8 @@ import { RootState } from "../../../store/types";
 import Categories from "../../Categories";
 import actions from "../../Categories/state/actions";
 import selectors from "../../Categories/state/selectors";
-import TodoItem from "../../common/TodoItem";
 import { todo_interface } from "../../common/TodoItem/interface";
+import TodoItems from "../../TodoItems";
 import "./styles.scss";
 
 const mapStateToProps = (state: RootState) => ({
@@ -25,16 +25,16 @@ function Main(props: PropsFromRedux) {
     loadTodoItems();
   }, []);
 
+  const items = activeCategory
+    ? todoItems.filter(
+        (item: todo_interface) => item.parentId === activeCategory.id
+      )
+    : null;
+
   return (
     <main className="main">
       <Categories />
-      {activeCategory
-        ? todoItems
-            .filter(
-              (item: todo_interface) => item.parentId === activeCategory.id
-            )
-            .map((item: todo_interface) => <TodoItem key={item.id} {...item} />)
-        : "choose"}
+      <TodoItems items={items} />
     </main>
   );
 }

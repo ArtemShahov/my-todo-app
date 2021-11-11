@@ -25,12 +25,9 @@ function App(props: Props) {
   return (
     <ThemeProvider theme={theme}>
       <Box
-        p={2}
         sx={{
           bgcolor: "background.default",
           color: "text.primary",
-          width: "100vw",
-          height: "100vh",
         }}
       >
         <div className="app">

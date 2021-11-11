@@ -1,7 +1,11 @@
+import { IconButton, Paper, Typography } from "@mui/material";
 import React from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "../../../store/types";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import EditIcon from "@mui/icons-material/Edit";
 import actions from "../../Categories/state/actions";
+import "./styles.scss";
 
 const mapStateToProps = (state: RootState) => ({
   // activeCategory: selectors.getActiveCategory(state),
@@ -23,14 +27,27 @@ function TodoItem(props: Props) {
   const { id, title, content, parentId, deleteTodoItem } = props;
 
   function onClickHandler() {
-    deleteTodoItem({id, parentId});
+    deleteTodoItem({ id, parentId });
   }
   return (
-    <div>
-      <h4>{title}</h4>
-      <div>{content}</div>
-      <button onClick={onClickHandler}>Delete</button>
-    </div>
+    <Paper elevation={4} sx={{ p: 2, border: 1, borderColor: "divider" }}>
+      <header className="todo-item__header">
+        <div className="todo-item__title">
+          <Typography sx={{ m: 0 }} gutterBottom variant="h6" component="div">
+            {title}
+          </Typography>
+          <IconButton>
+            <EditIcon fontSize="small" />
+          </IconButton>
+        </div>
+        <IconButton aria-label="delete" onClick={onClickHandler}>
+          <DeleteOutlineIcon />
+        </IconButton>
+      </header>
+      <Typography variant="body1" color="text.secondary">
+        {content}
+      </Typography>
+    </Paper>
   );
 }
 

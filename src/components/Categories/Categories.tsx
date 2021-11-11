@@ -38,7 +38,7 @@ function Categories(props: PropsFromRedux) {
   return (
     <div>
       <CategoryControl activeCategoryId={activeCategoryId} />
-      <Paper>
+      <Paper elevation={3}>
         <Category parentId={null} />
       </Paper>
       <Modal type={ADD_CATEGORY}>

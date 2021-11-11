@@ -1,0 +1,15 @@
+@import '../../../App.scss';
+
+.todo-item__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: $size;
+    z-index: 0;
+}
+
+.todo-item__title {
+    display: flex;
+    align-items: center;
+    gap: $size;
+}
