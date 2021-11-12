@@ -18,3 +18,9 @@
     align-items: center;
     gap: $size;
 }
+
+@media screen and (min-width: 700px) {
+    .todo-items {
+        grid-area: todo-items;
+    }
+}
