@@ -95,10 +95,9 @@ module.exports.changeTodoItemStatus = async (req, res) => {
     const { id } = req.body;
     const todoItem = await TodoItem.findOne({ id });
     const { isDone } = todoItem;
-    console.log(isDone);
 
     todoItem.isDone = !isDone;
-    todoItem.save();
+    await todoItem.save();
 
     const todoItems = await TodoItem.find();
     res.json(todoItems);

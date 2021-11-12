@@ -26,7 +26,7 @@ function TodoItem(props: Props) {
   const doneTextStyle = isDone && { color: "divider", textDecoration: "line-through" };
 
   return (
-    <Paper elevation={4} sx={{ p: 2, border: 1, borderColor: "divider" }}>
+    <Paper elevation={isDone ? 3 : 6} sx={{ p: 2, border: 1, boxShadow: 0, borderColor: "divider" }}>
       <header className="todo-item__header">
         <div className="todo-item__title">
           <Typography

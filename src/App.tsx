@@ -6,6 +6,7 @@ import "./App.scss";
 import Header from "./components/base/Header";
 import Main from "./components/base/Main";
 import selectors from "./components/common/ThemeToggler/state/selectors";
+import Modals from "./components/Modals";
 
 interface Props {
   mode: string;
@@ -35,6 +36,7 @@ function App(props: Props) {
           <Main />
         </div>
       </Box>
+      <Modals />
     </ThemeProvider>
   );
 }
