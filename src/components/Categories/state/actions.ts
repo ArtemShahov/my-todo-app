@@ -1,4 +1,4 @@
-import { todo_interface } from '../../common/TodoItem/interface';
+import { todo_interface } from "../../common/TodoItem/interface";
 import { category_interface } from "./../interfaces";
 /* eslint-disable import/no-anonymous-default-export */
 import dataService from "../../../dataService/dataService";
@@ -23,15 +23,12 @@ const setActiveCategory = (categoryId: string) => (dispatch: AppDispatch) => {
   dispatch(actionCreators.setActiveCategory(categoryId));
 };
 
-const addCategory =
-  (name: string, parentId: any) => (dispatch: AppDispatch) => {
-    dataService
-      .addCategory({ name, parentId })
-      .then((data: category_interface[]) => {
-        dispatch(actionCreators.setCategories(data));
-      });
-    modalActions.closeModal(ADD_CATEGORY);
-  };
+const addCategory = (name: string, parentId: any) => (dispatch: AppDispatch) => {
+  dataService.addCategory({ name, parentId }).then((data: category_interface[]) => {
+    dispatch(actionCreators.setCategories(data));
+  });
+  modalActions.closeModal(ADD_CATEGORY);
+};
 
 const deleteCategory = (categoryId: string) => (dispatch: AppDispatch) => {
   dataService
@@ -45,24 +42,27 @@ const deleteCategory = (categoryId: string) => (dispatch: AppDispatch) => {
     });
 };
 
-const addTodoItem =
-  (todoItemData: { title: string; content: string; parentId: string }) =>
-  (dispatch: AppDispatch) => {
-    dataService
-      .addTodoItem(todoItemData)
-      .then((data: {categories: category_interface[], todoItems: todo_interface[]}) => {
-        dispatch(actionCreators.setTodoItems(data.todoItems));
-        dispatch(actionCreators.setCategories(data.categories));
-      });
-  };
-
-  const deleteTodoItem = (todoItem: {id: string, parentId: string}) => (dispatch: AppDispatch) => {
-    dataService.deleteTodoItem(todoItem)
-    .then((data) => {
-      dispatch(actionCreators.setCategories(data.categories));
+const addTodoItem = (todoItemData: { title: string; content: string; parentId: string }) => (dispatch: AppDispatch) => {
+  dataService
+    .addTodoItem(todoItemData)
+    .then((data: { categories: category_interface[]; todoItems: todo_interface[] }) => {
       dispatch(actionCreators.setTodoItems(data.todoItems));
-    })
-  }
+      dispatch(actionCreators.setCategories(data.categories));
+    });
+};
+
+const deleteTodoItem = (todoItem: { id: string; parentId: string }) => (dispatch: AppDispatch) => {
+  dataService.deleteTodoItem(todoItem).then((data) => {
+    dispatch(actionCreators.setCategories(data.categories));
+    dispatch(actionCreators.setTodoItems(data.todoItems));
+  });
+};
+
+const changeTodoItemStatus = (todoItem: { id: string }) => (dispatch: AppDispatch) => {
+  dataService
+    .changeTodoItemStatus(todoItem)
+    .then((data: todo_interface[]) => dispatch(actionCreators.setTodoItems(data)));
+};
 
 export default {
   loadCategories,
@@ -72,4 +72,5 @@ export default {
   deleteCategory,
   addTodoItem,
   deleteTodoItem,
+  changeTodoItemStatus,
 };

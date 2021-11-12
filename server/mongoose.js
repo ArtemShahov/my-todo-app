@@ -41,6 +41,10 @@ const TodoItemsSchema = new mongoose.Schema({
         type: String,
         require: true,
     },
+    isDone: {
+        type: Boolean,
+        require: true,
+    }
 
 });
 

@@ -3,4 +3,5 @@ export interface todo_interface {
     content: string;
     id: string;
     parentId: string;
+    isDone: boolean;
 }

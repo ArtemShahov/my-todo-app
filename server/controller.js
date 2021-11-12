@@ -28,8 +28,6 @@ module.exports.addCategory = async (req, res) => {
 
 async function deleteTodoItem(parentId) {
     const todoItems = await TodoItem.find({ parentId });
-    console.log('id', parentId);
-    console.log('items', todoItems)
     todoItems.forEach(item => item.remove());
 };
 
@@ -63,14 +61,13 @@ module.exports.deleteCategory = async (req, res) => {
 
 module.exports.addTodoItem = async (req, res) => {
     const { title, content, parentId } = req.body;
-    console.log(req.body)
     const id = createId();
 
     const category = await Category.findOne({ id: parentId });
     await category.itemsId.push(id);
     await category.save();
 
-    const newTodoItem = new TodoItem({ id, title, content, parentId });
+    const newTodoItem = new TodoItem({ id, title, content, parentId, isDone: false });
     await newTodoItem.save();
 
     const todoItems = await TodoItem.find();
@@ -94,41 +91,15 @@ module.exports.deleteTodoItem = async (req, res) => {
     res.json({ categories, todoItems });
 };
 
+module.exports.changeTodoItemStatus = async (req, res) => {
+    const { id } = req.body;
+    const todoItem = await TodoItem.findOne({ id });
+    const { isDone } = todoItem;
+    console.log(isDone);
 
+    todoItem.isDone = !isDone;
+    todoItem.save();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    const todoItems = await TodoItem.find();
+    res.json(todoItems);
+}
