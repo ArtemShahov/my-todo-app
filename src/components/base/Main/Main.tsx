@@ -34,10 +34,12 @@ function Main(props: PropsFromRedux) {
   return (
     <main className="main">
       <CategoryControl activeCategoryId={activeCategoryId} />
-      <Paper className="category" elevation={3}>
-        <Category parentId={null} />
-      </Paper>
-      <TodoItems items={items} />
+      <div className="main-content">
+        <Paper className="category" elevation={3}>
+          <Category parentId={null} />
+        </Paper>
+        <TodoItems items={items} />
+      </div>
     </main>
   );
 }

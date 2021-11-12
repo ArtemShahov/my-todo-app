@@ -1,6 +1,10 @@
 @import '../../App.scss';
 
 .todo-items {
+    flex-grow: 1;
+}
+
+.todo-items-content {
     transition: height .3s ease-in;
     padding: $size * 2;
     display: flex;

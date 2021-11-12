@@ -1,11 +1,5 @@
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
-import {
-  Collapse,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-} from "@mui/material";
+import { Collapse, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import React from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "../../../store/types";
@@ -33,9 +27,7 @@ function Category(props: Props) {
 
   function checkNested(id: string): boolean {
     function getParentChain(id: string): string[] {
-      const parent = categories.find((item: category_interface) =>
-        item.childrenId.includes(id)
-      );
+      const parent = categories.find((item: category_interface) => item.childrenId.includes(id));
       if (parent) {
         return [parent.id, ...getParentChain(parent.id)];
       }
@@ -55,9 +47,7 @@ function Category(props: Props) {
       {categories
         .filter((item: category_interface) => item.parentId === parentId)
         .map((item: category_interface) => {
-          const children = categories.filter(
-            (subItem: category_interface) => subItem.parentId === item.id
-          );
+          const children = categories.filter((subItem: category_interface) => subItem.parentId === item.id);
           return (
             <React.Fragment key={item.id}>
               <ListItemButton
@@ -75,21 +65,13 @@ function Category(props: Props) {
                     fontWeight: "700",
                     textOverflow: "ellipsis",
                     overflow: "hidden",
+                    ...(activeCategoryId === item.id && { variant: "button" }),
                   }}
                 />
-                {!!children.length &&
-                  (activeCategoryId === item.id ? (
-                    <ExpandLess />
-                  ) : (
-                    <ExpandMore />
-                  ))}
+                {!!children.length && (activeCategoryId === item.id ? <ExpandLess /> : <ExpandMore />)}
               </ListItemButton>
               {!!children.length && (
-                <Collapse
-                  in={activeCategoryId === item.id || checkNested(item.id)}
-                  timeout="auto"
-                  unmountOnExit
-                >
+                <Collapse in={activeCategoryId === item.id || checkNested(item.id)} timeout="auto" unmountOnExit>
                   <div className="nested-list">
                     <Category {...props} parentId={item.id} />
                   </div>

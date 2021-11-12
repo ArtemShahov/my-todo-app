@@ -29,7 +29,7 @@ function TodoItems(props: Props) {
   const { items, activeCategoryId, openModal } = props;
 
   return (
-    <Paper elevation={3}>
+    <Paper className="todo-items" elevation={3}>
       <header>
       <Button
         text="Add todo item"
@@ -37,7 +37,7 @@ function TodoItems(props: Props) {
         fn={() => openModal(ADD_TODO_ITEM)}
       />
       </header>
-      <div className="todo-items">
+      <div className="todo-items-content">
         {items ?
         (items.length ? items.map((item: todo_interface) => <TodoItem key={item.id} { ...item } />) : 'Nothing')
       : "Choose category"}

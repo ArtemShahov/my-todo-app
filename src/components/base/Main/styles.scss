@@ -4,10 +4,28 @@
     flex-grow: 1;
 }
 
-.main > * {
+.main-content > div {
     margin-bottom: $size * 2;
 }
 
 @media screen and (min-width: 700px) {
+    .main {
+        display: grid;
+        grid-template-rows: auto 1fr;
+        grid-template-columns: 1fr;
+    }
 
+    .main-content {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: $size * 2;
+    }
+
+    .main-content > div {
+        margin-bottom: 0;
+    }
+
+    .category {
+        width: 300px;
+    }
 }

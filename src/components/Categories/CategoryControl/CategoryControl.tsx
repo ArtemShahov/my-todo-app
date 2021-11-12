@@ -28,7 +28,7 @@ function CategoryControl(props: Props) {
   const { openModal, activeCategoryId, todoItems } = props;
   const doneTodoItems = todoItems.filter((item: todo_interface) => item.isDone);
   return (
-    <Paper className="category-control" elevation={3} sx={{ p: 2 }}>
+    <Paper className="category-control" elevation={3} sx={{ p: 2, mb: 2 }}>
       <Typography variant="h5">Categories</Typography>
       <div className="category-control__progress">
         <Progress title="Progress" all={todoItems.length} done={doneTodoItems.length} />
