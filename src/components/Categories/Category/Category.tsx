@@ -19,11 +19,13 @@ const connector = connect(mapStateToProps, { ...actions });
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 interface Props extends PropsFromRedux {
-  parentId?: string | null;
+  parentId: string | null;
+  nestedLevel?: number;
 }
 
 function Category(props: Props) {
-  const { parentId, categories, setActiveCategory, activeCategoryId } = props;
+  const { parentId, categories, setActiveCategory, activeCategoryId, nestedLevel } = props;
+  const level = nestedLevel || 1;
 
   function checkNested(id: string): boolean {
     function getParentChain(id: string): string[] {
@@ -43,7 +45,7 @@ function Category(props: Props) {
   }
 
   return (
-    <List component="div">
+    <List component="div" sx={{p: 0}}>
       {categories
         .filter((item: category_interface) => item.parentId === parentId)
         .map((item: category_interface) => {
@@ -51,7 +53,7 @@ function Category(props: Props) {
           return (
             <React.Fragment key={item.id}>
               <ListItemButton
-                sx={{ color: "text.primary" }}
+                sx={{ color: "text.primary", pl: (level * 2) }}
                 onClick={() => {
                   onClickHandler(item.id);
                 }}
@@ -72,8 +74,8 @@ function Category(props: Props) {
               </ListItemButton>
               {!!children.length && (
                 <Collapse in={activeCategoryId === item.id || checkNested(item.id)} timeout="auto" unmountOnExit>
-                  <div className={classes.nestedList}>
-                    <Category {...props} parentId={item.id} />
+                  <div >
+                    <Category {...props} nestedLevel={level + 1} parentId={item.id} />
                   </div>
                 </Collapse>
               )}

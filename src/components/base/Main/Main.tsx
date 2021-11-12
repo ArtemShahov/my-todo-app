@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Paper } from "@mui/material";
+import { Button, Paper } from "@mui/material";
 import React, { useEffect } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "../../../store/types";
@@ -22,7 +22,7 @@ const connector = connect(mapStateToProps, { ...actions });
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function Main(props: PropsFromRedux) {
-  const { activeCategory, loadTodoItems, todoItems, activeCategoryId, loadCategories } = props;
+  const { activeCategory, loadTodoItems, todoItems, activeCategoryId, loadCategories, setActiveCategory } = props;
 
   useEffect(() => {
     loadTodoItems();
@@ -39,6 +39,7 @@ function Main(props: PropsFromRedux) {
       <div className={classes.mainContent}>
         <div>
           <Paper className={classes.category} elevation={3}>
+            <Button onClick={() => setActiveCategory(null)}>All</Button>
             <Category parentId={null} />
           </Paper>
         </div>

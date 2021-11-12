@@ -19,7 +19,7 @@ const loadTodoItems = () => (dispatch: AppDispatch) => {
   });
 };
 
-const setActiveCategory = (categoryId: string) => (dispatch: AppDispatch) => {
+const setActiveCategory = (categoryId: string | null) => (dispatch: AppDispatch) => {
   dispatch(actionCreators.setActiveCategory(categoryId));
 };
 

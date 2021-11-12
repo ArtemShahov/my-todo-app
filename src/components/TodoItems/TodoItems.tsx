@@ -33,7 +33,7 @@ function TodoItems(props: Props) {
   return (
     <Paper className={classes.todoItems} elevation={3}>
       <header className={classes.todoItemsHeader}>
-        <Typography variant="h5">{activeCategory ? activeCategory.name : "All"}</Typography>
+        <Typography variant="h5" sx={{overflow: "hidden", textOverflow: "ellipsis"}}>{activeCategory ? activeCategory.name : "All"}</Typography>
         <div className={classes.todoItemsHeaderProgress}>
           <Progress title="Progress" all={items.length} done={doneItems.length} />
         </div>
