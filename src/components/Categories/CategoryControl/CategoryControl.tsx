@@ -31,8 +31,7 @@ function CategoryControl(props: Props) {
     <Paper className="category-control" elevation={3} sx={{ p: 2 }}>
       <Typography variant="h5">Categories</Typography>
       <div className="category-control__progress">
-        <span>Progress</span>
-        <Progress all={todoItems.length} done={doneTodoItems.length} />
+        <Progress title="Progress" all={todoItems.length} done={doneTodoItems.length} />
       </div>
       <Box sx={{ display: "flex", gap: 2 }}>
         <Button text="Add" fn={() => openModal(ADD_CATEGORY)} />

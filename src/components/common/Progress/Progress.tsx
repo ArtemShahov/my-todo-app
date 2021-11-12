@@ -16,15 +16,17 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 }));
 
 interface Props {
+  title: string;
   all: number;
   done: number;
 }
 
 function Progress(props: Props) {
-  const { all, done } = props;
+  const { title, all, done } = props;
   const progress = done / all * 100;
   return (
     <div className="progress">
+      {title}
       <BorderLinearProgress sx={{ flexGrow: 1 }} variant="determinate" value={progress} />
       <div>{done} / {all}</div>
     </div>
