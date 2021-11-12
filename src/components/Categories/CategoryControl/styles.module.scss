@@ -1,6 +1,6 @@
 @import '../../../App.scss';
 
-.category-control__progress {
+.categoryControlProgress {
     display: flex;
     gap: $size * 2;
     align-items: center;
@@ -9,12 +9,12 @@
 }
 
 @media screen and (min-width: 700px) {
-    .category-control {
+    .categoryControl {
         display: flex;
         align-items: center;
         gap: $size * 4;
     }
-    .category-control__progress {
+    .categoryControlProgress {
         order: 3;
     }
 }

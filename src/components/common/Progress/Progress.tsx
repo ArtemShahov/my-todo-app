@@ -1,7 +1,7 @@
 import React from "react";
 import { styled } from "@mui/material/styles";
 import { LinearProgress, linearProgressClasses } from "@mui/material";
-import "./styles.scss";
+import classes from "./styles.module.scss";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 10,
@@ -25,7 +25,7 @@ function Progress(props: Props) {
   const { title, all, done } = props;
   const progress = done / all * 100;
   return (
-    <div className="progress">
+    <div className={classes.progress}>
       {title}
       <BorderLinearProgress sx={{ flexGrow: 1 }} variant="determinate" value={progress} />
       <div>{done} / {all}</div>

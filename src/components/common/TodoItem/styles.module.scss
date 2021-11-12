@@ -1,0 +1,44 @@
+@import '../../../App.scss';
+
+.todoItems {
+    display: flex;
+    flex-direction: column;
+}
+
+.todoItemHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: $size;
+    z-index: 0;
+}
+
+.todoItemContent {
+    height: 4em;
+    flex-grow: 1;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -ms-line-clamp: 4;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    display: -webkit-box;
+    display: box;
+    word-wrap: break-word;
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+}
+
+.todoItemFooter {
+    margin-top: $size * 2;
+}
+
+.todoItemTitle {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    gap: $size;
+}
+
+@media screen and (min-width: 700px) {}

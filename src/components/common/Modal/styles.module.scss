@@ -9,20 +9,12 @@
     z-index: 1;
 }
 
-.modal.visually-hidden {
-    position: absolute;
-    clip: rect(0 0 0 0);
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-}
-
-.modal__overflow{
+.modalOverflow{
     width: 100vw;
     height: 100vh;
 }
 
-.modal__content{
+.modalContent{
     position: absolute;
     top: 50%;
     left: 50%;

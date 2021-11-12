@@ -4,7 +4,7 @@
     flex-grow: 1;
 }
 
-.main-content > div {
+.mainContent > div {
     margin-bottom: $size * 2;
 }
 
@@ -15,13 +15,13 @@
         grid-template-columns: 1fr;
     }
 
-    .main-content {
+    .mainContent {
         display: grid;
         grid-template-columns: 300px 1fr;
         gap: $size * 2;
     }
 
-    .main-content > div {
+    .mainContent > div {
         margin-bottom: 0;
     }
 

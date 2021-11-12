@@ -1,11 +1,11 @@
 import React from "react";
 import ListAltRoundedIcon from "@mui/icons-material/ListAltRounded";
 import { Typography } from "@mui/material";
-import '../styles.scss';
+import classes from '../styles.module.scss';
 
 function Logo() {
   return (
-    <div className="header__logo">
+    <div className={classes.headerLogo}>
       <ListAltRoundedIcon fontSize="large" />
       <Typography ml={2} fontSize="large" >TODO APP</Typography>
     </div>

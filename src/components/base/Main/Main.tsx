@@ -9,7 +9,7 @@ import actions from "../../Categories/state/actions";
 import selectors from "../../Categories/state/selectors";
 import { todo_interface } from "../../common/TodoItem/interface";
 import TodoItems from "../../TodoItems";
-import "./styles.scss";
+import classes from "./styles.module.scss";
 
 const mapStateToProps = (state: RootState) => ({
   activeCategory: selectors.getActiveCategory(state),
@@ -29,16 +29,22 @@ function Main(props: PropsFromRedux) {
     loadCategories();
   }, []);
 
-  const items = activeCategory ? todoItems.filter((item: todo_interface) => item.parentId === activeCategory.id) : null;
+  const items = activeCategory
+    ? todoItems.filter((item: todo_interface) => item.parentId === activeCategory.id)
+    : todoItems;
 
   return (
-    <main className="main">
+    <main className={classes.main}>
       <CategoryControl activeCategoryId={activeCategoryId} />
-      <div className="main-content">
-        <Paper className="category" elevation={3}>
-          <Category parentId={null} />
-        </Paper>
-        <TodoItems items={items} />
+      <div className={classes.mainContent}>
+        <div>
+          <Paper className={classes.category} elevation={3}>
+            <Category parentId={null} />
+          </Paper>
+        </div>
+        <div>
+          <TodoItems items={items} />
+        </div>
       </div>
     </main>
   );

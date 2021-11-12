@@ -2,7 +2,7 @@ import React from "react";
 import selectors from "./state/selectors";
 import { connect, ConnectedProps } from "react-redux";
 import { ModalName } from "./state/modalTypes";
-import "./styles.scss";
+import classes from "./styles.module.scss";
 import actions from "./state/actions";
 import { RootState } from "../../../store/types";
 
@@ -25,9 +25,9 @@ function Modal(props: Props) {
   const close = () => closeModal(type);
   const newChildren = React.cloneElement(children, {close});
   return isModalOpen ? (
-    <div className={`modal ${!isModalOpen ? "visually-hidden" : ""}`}>
-      <div className="modal__overflow" onClick={() => closeModal(type)} />
-      <div className="modal__content">{newChildren}</div>
+    <div className={classes.modal}>
+      <div className={classes.modalOverflow} onClick={() => closeModal(type)} />
+      <div className={classes.modalContent}>{newChildren}</div>
     </div>
   ): (<></>);
 

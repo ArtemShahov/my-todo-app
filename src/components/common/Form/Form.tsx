@@ -5,7 +5,7 @@ import { RootState } from "../../../store/types";
 import actions from "./state/actions";
 import selectors from "./state/selectors";
 import Button from "../Button";
-import "./styles.scss";
+import classes from './styles.module.scss';
 
 const mapStateToProps = (state: RootState) => ({
   getFieldValue: (field: string) => selectors.getFieldValue(state, field),
@@ -73,9 +73,9 @@ function Form(props: Props) {
   }
   return (
     <Paper elevation={3}>
-      <div className="form">
+      <div className={classes.form}>
       <Typography sx={{ textOverflow: "ellipsis", overflow: "hidden" }} variant="h5" gutterBottom component="div">{title}</Typography>
-        <form autoComplete="off" className="form__fields">
+        <form autoComplete="off" className={classes.formFields}>
           {formFields.map((field: FormComponentField) => (
             <TextField
               key={field.name}

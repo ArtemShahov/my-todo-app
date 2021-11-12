@@ -7,7 +7,7 @@ import { category_interface } from "../interfaces";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import actions from "../state/actions";
 import selectors from "../state/selectors";
-import "./styles.scss";
+import classes from "./styles.module.scss";
 
 const mapStateToProps = (state: RootState) => ({
   activeCategoryId: selectors.getActiveCategoryId(state),
@@ -72,7 +72,7 @@ function Category(props: Props) {
               </ListItemButton>
               {!!children.length && (
                 <Collapse in={activeCategoryId === item.id || checkNested(item.id)} timeout="auto" unmountOnExit>
-                  <div className="nested-list">
+                  <div className={classes.nestedList}>
                     <Category {...props} parentId={item.id} />
                   </div>
                 </Collapse>

@@ -1,11 +1,13 @@
+@import '../../../variables';
+
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: $size * 2;
 }
 
-.header__logo {
+.headerLogo {
     display: flex;
     align-items: center;
 }

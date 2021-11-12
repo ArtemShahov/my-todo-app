@@ -1,7 +1,7 @@
 import { Paper, Typography } from "@mui/material";
 import React from "react";
 import Button from "../Button";
-import "./styles.scss";
+import classes from "./styles.module.scss";
 
 interface Props {
   title: string;
@@ -31,7 +31,7 @@ function Confirm(props: Props) {
       >
         {title}
       </Typography>
-      <div className="confirm-buttons">
+      <div className={classes.confirmButtons}>
         <Button text="Yes" fn={() => onClickHandler(true)} />
         <Button text="No" fn={() => onClickHandler(false)} />
       </div>

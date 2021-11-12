@@ -5,7 +5,7 @@ import { RootState } from "../../../store/types";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
 import actions from "../../Categories/state/actions";
-import "./styles.scss";
+import classes from "./styles.module.scss";
 
 const mapStateToProps = (state: RootState) => ({});
 
@@ -23,12 +23,12 @@ interface Props extends PropsFromRedux {
 
 function TodoItem(props: Props) {
   const { id, title, content, parentId, deleteTodoItem, changeTodoItemStatus, isDone } = props;
-  const doneTextStyle = isDone && { color: "divider", textDecoration: "line-through" };
+  const doneTextStyle = isDone && { color: "divider" };
 
   return (
-    <Paper className="todo-items" elevation={isDone ? 3 : 6} sx={{ p: 2, border: 1, boxShadow: 0, borderColor: "divider" }}>
-      <header className="todo-item__header">
-        <div className="todo-item__title">
+    <Paper className={classes.todoItems} elevation={isDone ? 3 : 6} sx={{ p: 2, border: 1, boxShadow: 0, borderColor: "divider" }}>
+      <header className={classes.todoItemHeader}>
+        <div className={classes.todoItemTitle}>
           <Typography
             sx={{
               m: 0,
@@ -51,13 +51,14 @@ function TodoItem(props: Props) {
         </IconButton>
       </header>
       <Typography
-        sx={{ textOverflow: "ellipsis", overflow: "hidden", ...doneTextStyle }}
+      className={classes.todoItemContent}
+        sx={{ ...doneTextStyle }}
         variant="body1"
         color="text.secondary"
       >
         {content}
       </Typography>
-      <footer className="todo-item__footer">
+      <footer className={classes.todoItemFooter}>
         <Button variant="outlined" onClick={() => changeTodoItemStatus({ id })}>{!isDone ? "Done" : "Cancel"}</Button>
       </footer>
     </Paper>

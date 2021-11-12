@@ -8,7 +8,7 @@ import { ADD_CATEGORY, DELETE_CATEGORY, ModalName } from "../../common/Modal/sta
 import Progress from "../../common/Progress";
 import { todo_interface } from "../../common/TodoItem/interface";
 import selectors from "../state/selectors";
-import "./styles.scss";
+import classes from "./styles.module.scss";
 
 const mapStateToProps = (state: RootState) => ({
   activeCategory: selectors.getActiveCategory(state),
@@ -28,10 +28,10 @@ function CategoryControl(props: Props) {
   const { openModal, activeCategoryId, todoItems } = props;
   const doneTodoItems = todoItems.filter((item: todo_interface) => item.isDone);
   return (
-    <Paper className="category-control" elevation={3} sx={{ p: 2, mb: 2 }}>
+    <Paper className={classes.categoryControl} elevation={3} sx={{ p: 2, mb: 2 }}>
       <Typography variant="h5">Categories</Typography>
-      <div className="category-control__progress">
-        <Progress title="Progress" all={todoItems.length} done={doneTodoItems.length} />
+      <div className={classes.categoryControlProgress}>
+        <Progress title="All progress" all={todoItems.length} done={doneTodoItems.length} />
       </div>
       <Box sx={{ display: "flex", gap: 2 }}>
         <Button text="Add" fn={() => openModal(ADD_CATEGORY)} />
