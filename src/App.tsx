@@ -19,6 +19,9 @@ function App(props: Props) {
       createTheme({
         palette: {
           mode: mode === "dark" ? "dark" : "light",
+          background: {
+            ...(mode === 'light' ? {default: '#ddd'} : {default: '#121212'})
+          }
         },
       }),
     [mode]

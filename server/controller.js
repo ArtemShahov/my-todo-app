@@ -33,11 +33,25 @@ async function deleteTodoItem(parentId) {
 
 module.exports.deleteCategory = async (req, res) => {
 
+    async function delCategory(id) {
+        const category = await Category.findOne({ id: id });
+        if (category) {
+            const { childrenId } = category;
+            await deleteTodoItem(id);
+            if (childrenId.length) {
+                for (const item of childrenId) {
+                    await delCategory(item);
+                }
+            }
+            await category.remove();
+        }
+    }
+
     const { categoryId: id } = req.body;
     if (id) {
 
-        let categories = await Category.find();
-        const parent = categories.find((category => category.childrenId.includes(id)));
+        const categories = await Category.find();
+        const parent = await categories.find((category => category.childrenId.includes(id)));
         await delCategory(id);
         if (parent) {
             const parentCategory = await Category.findOne({ id: parent.id });
@@ -47,20 +61,12 @@ module.exports.deleteCategory = async (req, res) => {
         }
     } else {
         const categories = await Category.find();
-        await categories.forEach(item => delCategory(item.id));
+        for (const item of categories) {
+            await delCategory(item.id);
+        }
     }
     const categories = await Category.find();
     res.json(categories);
-
-    async function delCategory(id) {
-        const category = await Category.findOne({ id: id });
-        const { childrenId } = category;
-        deleteTodoItem(id);
-        if (childrenId.length) {
-            childrenId.forEach(itemId => delCategory(itemId));
-        }
-        await category.remove();
-    }
 };
 
 module.exports.addTodoItem = async (req, res) => {
