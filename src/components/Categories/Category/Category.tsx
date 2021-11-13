@@ -7,7 +7,6 @@ import { category_interface } from "../interfaces";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import actions from "../state/actions";
 import selectors from "../state/selectors";
-import classes from "./styles.module.scss";
 
 const mapStateToProps = (state: RootState) => ({
   activeCategoryId: selectors.getActiveCategoryId(state),

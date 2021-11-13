@@ -16,6 +16,8 @@ import Search from "../common/Search";
 const mapStateToProps = (state: RootState) => ({
   allTodoItems: selectors.getTodoItems(state),
   activeCategory: selectors.getActiveCategory(state),
+  filterText: selectors.getFilterText(state),
+  filterDone: selectors.getFilterDone(state),
 });
 
 const connector = connect(mapStateToProps, { ...actions, ...modalActions });
@@ -28,8 +30,20 @@ interface Props extends PropsFromRedux {
 }
 
 function TodoItems(props: Props) {
-  const { items, activeCategory, openModal } = props;
+  const { items, activeCategory, openModal, filterText, filterDone } = props;
   const doneItems = items.filter((item: todo_interface) => item.isDone);
+
+  function filteringItems() {
+    let result = items;
+    if (filterDone) {
+      result = result.filter((item: todo_interface) => item.isDone);
+    }
+    if (filterText) {
+      result = result.filter((item: todo_interface) => item.title.includes(filterText) || item.content.includes(filterText))
+    }
+    return result;
+  }
+  const renderItems = filteringItems();
 
   return (
     <Paper className={classes.todoItems} elevation={3}>
@@ -44,7 +58,7 @@ function TodoItems(props: Props) {
       </header>
       <Search />
       <div className={classes.todoItemsContent}>
-        {items.length ? items.map((item: todo_interface) => <TodoItem key={item.id} {...item} />) : "Empty"}
+        {renderItems.length ? renderItems.map((item: todo_interface) => <TodoItem key={item.id} {...item} />) : "Empty"}
       </div>
     </Paper>
   );
