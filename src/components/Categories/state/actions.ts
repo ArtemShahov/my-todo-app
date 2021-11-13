@@ -1,6 +1,6 @@
+/* eslint-disable import/no-anonymous-default-export */
 import { todo_interface } from "../../common/TodoItem/interface";
 import { category_interface } from "./../interfaces";
-/* eslint-disable import/no-anonymous-default-export */
 import dataService from "../../../dataService/dataService";
 import { AppDispatch } from "../../../store/types";
 import actionCreators from "./actionCreators";

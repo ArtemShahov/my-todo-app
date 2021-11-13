@@ -27,7 +27,7 @@ function Progress(props: Props) {
   return (
     <div className={classes.progress}>
       {title}
-      <BorderLinearProgress sx={{ flexGrow: 1 }} variant="determinate" value={progress} />
+      <BorderLinearProgress sx={{ flexGrow: 1 }} variant="determinate" value={progress || 0} />
       <div>{done} / {all}</div>
     </div>
   );
