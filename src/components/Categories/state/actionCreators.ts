@@ -4,6 +4,7 @@ import { ADD_CATEGORY } from "./../../common/Modal/state/modalTypes";
 import {
   GET_CATEGORIES,
   SET_ACTIVE_CATEGORY,
+  SET_FILTER_DONE,
   SET_FILTER_INPUT,
   SET_TODO_ITEMS,
 } from "./actionTypes";
@@ -36,10 +37,16 @@ const setFilterInput = (value: string): action_interface => ({
   payload: value,
 })
 
+const setFilterDone = (value: boolean): action_interface => ({
+  type: SET_FILTER_DONE,
+  payload: value,
+}) 
+
 export default {
   setCategories,
   setTodoItems,
   setActiveCategory,
   addCategory,
   setFilterInput,
+  setFilterDone,
 };

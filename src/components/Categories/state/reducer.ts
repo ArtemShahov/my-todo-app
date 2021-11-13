@@ -1,11 +1,6 @@
 import { category_interface } from "../interfaces";
 import { action_interface } from "./../../../store/interfaces";
-import {
-  SET_ACTIVE_CATEGORY,
-  GET_CATEGORIES,
-  SET_TODO_ITEMS,
-  SET_FILTER_INPUT,
-} from "./actionTypes";
+import { SET_ACTIVE_CATEGORY, GET_CATEGORIES, SET_TODO_ITEMS, SET_FILTER_INPUT, SET_FILTER_DONE } from "./actionTypes";
 
 export interface categoriesReducer_interface {
   allCategories: category_interface[];
@@ -15,7 +10,7 @@ export interface categoriesReducer_interface {
   filter: {
     text: string;
     done: boolean;
-  }
+  };
 }
 
 const initialState: categoriesReducer_interface = {
@@ -28,15 +23,12 @@ const initialState: categoriesReducer_interface = {
     content: "",
   },
   filter: {
-    text: '',
+    text: "",
     done: false,
-  }
+  },
 };
 
-export const categoriesReducer = (
-  state = initialState,
-  action: action_interface
-) => {
+export const categoriesReducer = (state = initialState, action: action_interface) => {
   switch (action.type) {
     case GET_CATEGORIES: {
       return {
@@ -58,13 +50,22 @@ export const categoriesReducer = (
       };
     }
     case SET_FILTER_INPUT: {
-      const value = action.payload; 
+      const value = action.payload;
       const newFilter = state.filter;
       newFilter.text = value;
       return {
         ...state,
-        newFilter,
-      }
+        filter: { ...newFilter },
+      };
+    }
+    case SET_FILTER_DONE: {
+      const value = action.payload;
+      const newFilter = state.filter;
+      newFilter.done = value;
+      return {
+        ...state,
+        filter: { ...newFilter },
+      };
     }
     default:
       return state;

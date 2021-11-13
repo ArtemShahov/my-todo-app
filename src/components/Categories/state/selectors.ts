@@ -17,6 +17,7 @@ const getTodoItemStatus = (store: any, todoItemId: string): boolean => {
   return todoItemById.id;
 };
 const getFilterText = (store:any) => store.categoriesReducer.filter.text;
+const getFilterDone = (store:any) => store.categoriesReducer.filter.done;
 
 export default {
   getCategories,
@@ -26,4 +27,5 @@ export default {
   getTodoItems,
   getTodoItemStatus,
   getFilterText,
+  getFilterDone,
 };

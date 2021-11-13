@@ -53,7 +53,7 @@ function Category(props: Props) {
           return (
             <React.Fragment key={item.id}>
               <ListItemButton
-                sx={{ color: "text.primary", pl: (level * 2) }}
+                sx={{ pl: (level * 2) }}
                 onClick={() => {
                   onClickHandler(item.id);
                 }}
@@ -64,7 +64,6 @@ function Category(props: Props) {
                 <ListItemText
                   primary={item.name}
                   sx={{
-                    fontWeight: "700",
                     textOverflow: "ellipsis",
                     overflow: "hidden",
                     ...(activeCategoryId === item.id && { variant: "button" }),

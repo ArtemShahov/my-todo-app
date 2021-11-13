@@ -68,6 +68,10 @@ const setFilterText = (value: string) => (dispatch: AppDispatch) => {
   dispatch(actionCreators.setFilterInput(value));
 };
 
+const setFilterDone = (value: boolean) => (dispatch: AppDispatch) => {
+  dispatch(actionCreators.setFilterDone(value));
+}
+
 export default {
   loadCategories,
   loadTodoItems,
@@ -78,4 +82,5 @@ export default {
   deleteTodoItem,
   changeTodoItemStatus,
   setFilterText,
+  setFilterDone,
 };
