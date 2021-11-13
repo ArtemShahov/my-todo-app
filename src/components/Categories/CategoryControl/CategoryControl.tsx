@@ -35,7 +35,7 @@ function CategoryControl(props: Props) {
       </div>
       <Box sx={{ display: "flex", gap: 2 }}>
         <Button text="Add" fn={() => openModal(ADD_CATEGORY)} />
-        <Button text="Delete" disabled={!activeCategoryId} fn={() => openModal(DELETE_CATEGORY)} />
+        <Button text="Delete" fn={() => openModal(DELETE_CATEGORY)} />
       </Box>
     </Paper>
   );

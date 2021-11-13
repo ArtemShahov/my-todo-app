@@ -36,7 +36,7 @@ const postRequest =
 const getCategories: () => Promise<category_interface[]> = getRequest("/getCategories");
 const getTodoItems: () => Promise<todo_interface[]> = getRequest("/getTodoItems");
 
-const deleteCategory: (categoryData: { categoryId: string }) => Promise<category_interface[]> =
+const deleteCategory: (categoryData: { categoryId: string | null }) => Promise<category_interface[]> =
   postRequest("/deleteCategory");
 const addCategory: (category: { name: string; parentId: string | null }) => Promise<category_interface[]> =
   postRequest("/addCategory");

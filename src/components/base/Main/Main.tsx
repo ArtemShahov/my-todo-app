@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Button, Paper } from "@mui/material";
+import { Box } from "@mui/system";
 import React, { useEffect } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "../../../store/types";
@@ -39,7 +40,9 @@ function Main(props: PropsFromRedux) {
       <div className={classes.mainContent}>
         <div>
           <Paper className={classes.category} elevation={3}>
+            <Box sx={{p: 1}}>
             <Button onClick={() => setActiveCategory(null)}>All</Button>
+            </Box>
             <Category parentId={null} />
           </Paper>
         </div>

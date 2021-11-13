@@ -30,7 +30,7 @@ const addCategory = (name: string, parentId: any) => (dispatch: AppDispatch) => 
   modalActions.closeModal(ADD_CATEGORY);
 };
 
-const deleteCategory = (categoryId: string) => (dispatch: AppDispatch) => {
+const deleteCategory = (categoryId: string | null) => (dispatch: AppDispatch) => {
   dataService
     .deleteCategory({ categoryId })
     .then((data) => dispatch(actionCreators.setCategories(data)))

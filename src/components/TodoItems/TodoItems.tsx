@@ -11,6 +11,7 @@ import { todo_interface } from "../common/TodoItem/interface";
 import classes from "./styles.module.scss";
 import { ADD_TODO_ITEM } from "../common/Modal/state/modalTypes";
 import Progress from "../common/Progress";
+import Search from "../common/Search";
 
 const mapStateToProps = (state: RootState) => ({
   allTodoItems: selectors.getTodoItems(state),
@@ -39,6 +40,7 @@ function TodoItems(props: Props) {
         </div>
         <Button text="Add" disabled={!activeCategory} fn={() => openModal(ADD_TODO_ITEM)} />
       </header>
+      <Search />
       <div className={classes.todoItemsContent}>
         {items.length ? items.map((item: todo_interface) => <TodoItem key={item.id} {...item} />) : "Empty"}
       </div>
