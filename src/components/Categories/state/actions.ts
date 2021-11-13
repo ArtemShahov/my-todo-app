@@ -64,6 +64,10 @@ const changeTodoItemStatus = (todoItem: { id: string }) => (dispatch: AppDispatc
     .then((data: todo_interface[]) => dispatch(actionCreators.setTodoItems(data)));
 };
 
+const setFilterText = (value: string) => (dispatch: AppDispatch) => {
+  dispatch(actionCreators.setFilterInput(value));
+};
+
 export default {
   loadCategories,
   loadTodoItems,
@@ -73,4 +77,5 @@ export default {
   addTodoItem,
   deleteTodoItem,
   changeTodoItemStatus,
+  setFilterText,
 };

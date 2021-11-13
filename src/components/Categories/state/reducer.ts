@@ -4,6 +4,7 @@ import {
   SET_ACTIVE_CATEGORY,
   GET_CATEGORIES,
   SET_TODO_ITEMS,
+  SET_FILTER_INPUT,
 } from "./actionTypes";
 
 export interface categoriesReducer_interface {
@@ -11,6 +12,10 @@ export interface categoriesReducer_interface {
   activeCategory: string | null;
   addCategoryForm: any;
   allTodoItems: [];
+  filter: {
+    text: string;
+    done: boolean;
+  }
 }
 
 const initialState: categoriesReducer_interface = {
@@ -22,6 +27,10 @@ const initialState: categoriesReducer_interface = {
     title: "",
     content: "",
   },
+  filter: {
+    text: '',
+    done: false,
+  }
 };
 
 export const categoriesReducer = (
@@ -42,11 +51,20 @@ export const categoriesReducer = (
       };
     }
     case SET_ACTIVE_CATEGORY: {
-      let result = action.payload;
+      const result = action.payload;
       return {
         ...state,
         activeCategory: result,
       };
+    }
+    case SET_FILTER_INPUT: {
+      const value = action.payload; 
+      const newFilter = state.filter;
+      newFilter.text = value;
+      return {
+        ...state,
+        newFilter,
+      }
     }
     default:
       return state;
