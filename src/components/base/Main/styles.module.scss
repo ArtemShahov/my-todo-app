@@ -1,19 +1,11 @@
-@import '../../../variables';;
+@import '../../../variables';
+@import '../../../mixins.scss';
 
-.main {
-    flex-grow: 1;
-}
-
-.mainContent > div {
+.mainContent>div {
     margin-bottom: $size * 2;
 }
 
 @media screen and (min-width: 700px) {
-    .main {
-        display: grid;
-        grid-template-rows: auto 1fr;
-        grid-template-columns: 1fr;
-    }
 
     .mainContent {
         display: grid;
@@ -21,11 +13,7 @@
         gap: $size * 2;
     }
 
-    .mainContent > div {
+    .mainContent>div {
         margin-bottom: 0;
-    }
-
-    .category {
-        width: 300px;
     }
 }

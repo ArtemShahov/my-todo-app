@@ -1,7 +1,7 @@
 @import '../../variables';
+@import '../../mixins.scss';
 
 .todoItems {
-    flex-grow: 1;
     padding: $size * 2;
 }
 
@@ -9,33 +9,12 @@
     margin-bottom: $size * 2;
 }
 
-.todoItemsHeader > *:not(*:last-child) {
+.todoItemsContent>div {
     margin-bottom: $size * 2;
 }
 
-.todoItemsContent {
-    transition: height .3s ease-in;
-    display: flex;
-    flex-direction: column;
-    gap: $size * 2;
-}
-
-@media screen and (min-width: 700px) {
-    .todoItemsHeader {
-        display: flex;
-        align-items: center;
-        gap: $size * 2;
-        flex-wrap: wrap;
-    }
-
-    .todoItemsHeader > *:not(*:last-child) {
-        margin-bottom: 0;
-    }
-
-    .todoItemsHeaderProgress {
-        flex-grow: 1;
-        order: 3;
-    }
+.todoItemsHeaderControl {
+    @include flex(2);
 }
 
 @media screen and (min-width: 1000px) {
@@ -44,5 +23,9 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: $size * 2;
+
+        &>div {
+            margin-bottom: 0;
+        }
     }
 }

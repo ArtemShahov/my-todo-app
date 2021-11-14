@@ -7,7 +7,7 @@ function Logo() {
   return (
     <div className={classes.headerLogo}>
       <ListAltRoundedIcon fontSize="large" />
-      <Typography ml={2} fontSize="large" >TODO APP</Typography>
+      <Typography fontSize="large" >TODO APP</Typography>
     </div>
   );
 }

@@ -1,7 +1,11 @@
 @import '../../../variables';
+@import '../../../mixins.scss';
 
 .todoItemsSearch {
-    display: flex;
-    align-items: center;
+    @include flex(2);
     margin-bottom: $size * 2;
+}
+
+.todoItemSearchCheckbox {
+    flex-shrink: 0;
 }

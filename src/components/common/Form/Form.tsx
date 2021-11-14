@@ -84,10 +84,6 @@ function Form(props: Props) {
               onChange={field.onChange}
               variant="outlined"
             />
-            // <label key={field.name}>
-            //   {field.label}
-            //   <input {...field} />
-            // </label>
           ))}
           <Button text="Send" fn={onSubmit} />
         </form>

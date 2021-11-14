@@ -1,9 +1,8 @@
-@import '../../../variables';;
+@import '../../../variables';
+@import '../../../mixins.scss';
 
 .progress {
-    display: flex;
-    gap: $size;
+    @include flex(1);
     flex-grow: 1;
-    align-items: center;
     min-width: $size * 20;
 }

@@ -39,7 +39,9 @@ function TodoItems(props: Props) {
       result = result.filter((item: todo_interface) => item.isDone);
     }
     if (filterText) {
-      result = result.filter((item: todo_interface) => item.title.includes(filterText) || item.content.includes(filterText))
+      result = result.filter(
+        (item: todo_interface) => item.title.includes(filterText) || item.content.includes(filterText)
+      );
     }
     return result;
   }
@@ -48,13 +50,13 @@ function TodoItems(props: Props) {
   return (
     <Paper className={classes.todoItems} elevation={3}>
       <header className={classes.todoItemsHeader}>
-        <Typography variant="h5" sx={{ overflow: "hidden", textOverflow: "ellipsis" }}>
+        <Typography variant="h5" sx={{ overflow: "hidden", mb: 2, textOverflow: "ellipsis" }}>
           {activeCategory ? activeCategory.name : "All"}
         </Typography>
-        <div className={classes.todoItemsHeaderProgress}>
+        <div className={classes.todoItemsHeaderControl}>
+          <Button text="Add" disabled={!activeCategory} fn={() => openModal(ADD_TODO_ITEM)} />
           <Progress title="Progress" all={items.length} done={doneItems.length} />
         </div>
-        <Button text="Add" disabled={!activeCategory} fn={() => openModal(ADD_TODO_ITEM)} />
       </header>
       <Search />
       <div className={classes.todoItemsContent}>

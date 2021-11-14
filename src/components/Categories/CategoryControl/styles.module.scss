@@ -1,20 +1,17 @@
-@import '../../../variables';;
+@import '../../../variables';
+@import '../../../mixins.scss';
 
 .categoryControlProgress {
-    display: flex;
-    gap: $size * 2;
-    align-items: center;
     margin: $size * 2 0;
     flex-grow: 1;
 }
 
 @media screen and (min-width: 700px) {
     .categoryControl {
-        display: flex;
-        align-items: center;
-        gap: $size * 4;
+        @include flex(4);
     }
     .categoryControlProgress {
+        margin: 0;
         order: 3;
     }
 }

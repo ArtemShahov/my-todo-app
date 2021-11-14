@@ -42,7 +42,11 @@ function Search(props: PropsFromRedux) {
         value={textValue}
         onChange={onChangeTextHandler}
       />
-      <FormControlLabel control={<Checkbox checked={doneValue} onChange={onChangeDoneHandler} />} label="Done" />
+      <FormControlLabel
+        className={classes.todoItemSearchCheckbox}
+        control={<Checkbox checked={doneValue} onChange={onChangeDoneHandler} />}
+        label="Done"
+      />
       <Button onClick={clear}>Clear</Button>
     </div>
   );

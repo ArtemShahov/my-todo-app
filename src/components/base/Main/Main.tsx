@@ -35,13 +35,13 @@ function Main(props: PropsFromRedux) {
     : todoItems;
 
   return (
-    <main className={classes.main}>
+    <main>
       <CategoryControl activeCategoryId={activeCategoryId} />
       <div className={classes.mainContent}>
         <div>
-          <Paper className={classes.category} elevation={3}>
-            <Box sx={{p: 1}}>
-            <Button onClick={() => setActiveCategory(null)}>All</Button>
+          <Paper elevation={3}>
+            <Box sx={{ p: 1 }}>
+              <Button onClick={() => setActiveCategory(null)}>All</Button>
             </Box>
             <Category parentId={null} />
           </Paper>
