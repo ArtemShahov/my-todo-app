@@ -30,6 +30,7 @@ function TodoItem(props: Props) {
       <header className={classes.todoItemHeader}>
         <div className={classes.todoItemTitle}>
           <Typography
+          className={classes.todoItemTitleText}
             sx={{
               m: 0,
               textOverflow: "ellipsis",

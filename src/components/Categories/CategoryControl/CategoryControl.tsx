@@ -21,11 +21,10 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 interface Props extends PropsFromRedux {
   openModal: (modalName: ModalName) => void;
-  activeCategoryId: string;
 }
 
 function CategoryControl(props: Props) {
-  const { openModal, activeCategoryId, todoItems } = props;
+  const { openModal, todoItems } = props;
   const doneTodoItems = todoItems.filter((item: todo_interface) => item.isDone);
   return (
     <Paper className={classes.categoryControl} elevation={3} sx={{ p: 2, mb: 2 }}>

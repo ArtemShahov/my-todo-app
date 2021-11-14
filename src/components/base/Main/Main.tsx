@@ -14,7 +14,6 @@ import classes from "./styles.module.scss";
 
 const mapStateToProps = (state: RootState) => ({
   activeCategory: selectors.getActiveCategory(state),
-  activeCategoryId: selectors.getActiveCategoryId(state),
   todoItems: selectors.getTodoItems(state),
 });
 
@@ -23,7 +22,7 @@ const connector = connect(mapStateToProps, { ...actions });
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function Main(props: PropsFromRedux) {
-  const { activeCategory, loadTodoItems, todoItems, activeCategoryId, loadCategories, setActiveCategory } = props;
+  const { activeCategory, loadTodoItems, todoItems, loadCategories, setActiveCategory } = props;
 
   useEffect(() => {
     loadTodoItems();
@@ -36,7 +35,7 @@ function Main(props: PropsFromRedux) {
 
   return (
     <main>
-      <CategoryControl activeCategoryId={activeCategoryId} />
+      <CategoryControl />
       <div className={classes.mainContent}>
         <div>
           <Paper elevation={3}>
