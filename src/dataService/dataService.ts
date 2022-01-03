@@ -2,8 +2,6 @@
 import { todo_interface } from "../components/common/TodoItem/interface";
 import { category_interface } from "./../components/Categories/interfaces";
 
-const URL = "http://localhost:5050";
-
 const getRequest =
   (path: string) =>
   async <T>(): Promise<T> => {
