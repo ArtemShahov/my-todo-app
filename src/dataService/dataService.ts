@@ -5,7 +5,7 @@ import { category_interface } from "./../components/Categories/interfaces";
 const getRequest =
   (path: string) =>
   async <T>(): Promise<T> => {
-    const requestURL = URL + path;
+    const requestURL = path;
     const response = await fetch(requestURL, {
       method: "GET",
       headers: {
@@ -19,7 +19,7 @@ const getRequest =
 const postRequest =
   (path: string) =>
   async <RequestType, ResponseType>(requestData: RequestType): Promise<ResponseType> => {
-    const requestURL = URL + path;
+    const requestURL = path;
     const response = await fetch(requestURL, {
       method: "POST",
       headers: {
